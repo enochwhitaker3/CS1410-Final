@@ -60,8 +60,27 @@ class Program
         Console.WriteLine("||------------------------------||");
         Console.WriteLine("|| 3: Accessorized Merchandise  ||");
         Console.WriteLine("||------------------------------||\n");
-        
-        
+        var userInput = Convert.ToInt32(Console.ReadLine());
+        if (userInput == 1)
+        {
+            Console.Clear();
+            Console.WriteLine("Loading Clothing Merchandise Stock....\n");
+        }
+        else if (userInput == 2)
+        {
+            Console.Clear();
+            Console.WriteLine("Loading Skateboarding Merchandise Stock....\n");
+        }
+        else if (userInput == 3)
+        {
+            Console.Clear();
+            Console.WriteLine("Loading Accessorized Merchandise Stock....\n");
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("invalid input!\n");
+        }
     }
 
     public static void Main()
