@@ -2,19 +2,23 @@
 class Program
 {
     
-    public abstract class Merchandise
+    interface IMerchandise
     {
-        public Merchandise(string Brand, double Price)
-        {
-
-        }
+        string Brand();
+        double Price();
     
     }
     
-    public class Clothing : Merchandise
+    public class Clothing : IMerchandise
     {
         public string _brand; public double _price; public string _size; public string _color; public string _gender;
-        public Clothing(string Brand, double Price, string Size, string Color, string Gender) : base(Brand, Price)
+        public string Brand(){
+            return _brand;
+        }
+        public double Price(){
+            return _price;
+        }
+        public Clothing(string Brand, double Price, string Size, string Color, string Gender) 
         {
             this._brand = Brand;
             this._price = Price;
@@ -23,20 +27,32 @@ class Program
             this._gender = Gender;
         }
     }
-    public class Skating: Merchandise
+    public class Skating: IMerchandise
     {
         public string _brand; public double _price; public string _size;
-        public Skating(string Brand, double Price, string Size) : base(Brand, Price)
+        public string Brand(){
+            return _brand;
+        }
+        public double Price(){
+            return _price;
+        }
+        public Skating(string Brand, double Price, string Size)
         {
             this._brand = Brand;
             this._price = Price;
             this._size = Size;
         }
     }
-    public class Accessories: Merchandise
+    public class Accessories: IMerchandise
     {
         public string _brand; public double _price; public string _material; public string _gender;
-        public Accessories(string Brand, double Price, string Material, string Gender) : base(Brand, Price)
+        public string Brand(){
+            return _brand;
+        }
+        public double Price(){
+            return _price;
+        }
+        public Accessories(string Brand, double Price, string Material, string Gender)
         {
             this._brand = Brand;
             this._price = Price;
@@ -139,7 +155,7 @@ class Program
         mainUI();
         
         //Clothing shirt = new Clothing("Empyre", 9.99, "XL", "Black", "Men's");
-        //Console.WriteLine($"The {shirt._brand} hat costs {shirt._price} ");
+        //Console.WriteLine(shirt._brand + shirt._price + shirt._size + shirt._color + shirt._gender);
         
     }
 }
