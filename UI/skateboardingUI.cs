@@ -1,4 +1,5 @@
 using System;
+using ConsoleTables;
 using static main.Program;
 namespace skateboarding
 {
@@ -7,19 +8,13 @@ namespace skateboarding
         public static void skateboardingMenu()
         {
             Console.Clear();
-            Console.WriteLine("           Clothing Merchandise Categories                  ");
-            Console.WriteLine("\nPlease Pick An Option");
-            Console.WriteLine("\n||------------------------------||");
-            Console.WriteLine("|| 1: Check Grip Tape Stock     ||");
-            Console.WriteLine("||------------------------------||");
-            Console.WriteLine("|| 2: Check Decks Stock         ||");
-            Console.WriteLine("||------------------------------||");
-            Console.WriteLine("|| 3: Check Trucks Stock        ||");
-            Console.WriteLine("||------------------------------||");
-            Console.WriteLine("|| 4: Check Bearings Stock      ||");
-            Console.WriteLine("||------------------------------||");
-            Console.WriteLine("|| 5: Check Wheel Stock         ||");
-            Console.WriteLine("||------------------------------||\n");
+            var table = new ConsoleTable("Skateboarding Categories");
+            table.AddRow("1: Check Grip Tape Stock");
+            table.AddRow("2: Check Decks Stock");
+            table.AddRow("3: Check Trucks Stock");
+            table.AddRow("4: Check Bearings Stock");
+            table.AddRow("5: Check Wheel Stock");
+            table.Write(Format.Alternative);
             var userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {

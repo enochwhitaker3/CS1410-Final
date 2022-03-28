@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.IO;
+using ConsoleTables;
 using static clothes.clothingUI;
 using static skateboarding.skateboardingUI;
 using static accessories.accessoriesUI;
@@ -66,13 +67,11 @@ namespace main
             Console.Clear();
             Console.WriteLine($"Welcome Back Manager {user} to ACME Skate Shop's Inventory!");
             Console.WriteLine("\nWhich Stock Would You Like To Check Today?");
-            Console.WriteLine("\n||------------------------------||");
-            Console.WriteLine("|| 1: Clothing Merchandise      ||");
-            Console.WriteLine("||------------------------------||");
-            Console.WriteLine("|| 2: Skateboarding Merchandise ||");
-            Console.WriteLine("||------------------------------||");
-            Console.WriteLine("|| 3: Accessorized Merchandise  ||");
-            Console.WriteLine("||------------------------------||\n");
+            var table = new ConsoleTable("Categories");
+            table.AddRow("1: Clothing Merchandise");
+            table.AddRow("2: Skateboarding Merchandise");
+            table.AddRow("3: Accessorized Merchandise");
+            table.Write(Format.Alternative);
             var userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
@@ -89,7 +88,7 @@ namespace main
                 Console.WriteLine("Loading Clothing Merchandise Stock....\n");
                 Thread.Sleep(500);
                 clothingMenu();
-                
+
             }
             else if (userInput == 2)
             {

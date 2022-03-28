@@ -1,4 +1,5 @@
 using System;
+using ConsoleTables;
 using static main.Program;
 namespace accessories
 {
@@ -6,20 +7,14 @@ namespace accessories
     {
         public static void accessoriesMenu()
         {
-           Console.Clear();
-            Console.WriteLine("           Accessorized Merchandise Categories                  ");
-            Console.WriteLine("\nPlease Pick An Option");
-            Console.WriteLine("\n||------------------------------||");
-            Console.WriteLine("|| 1: Check Jewlery Stock       ||");
-            Console.WriteLine("||------------------------------||");
-            Console.WriteLine("|| 2: Check Stickers Stock      ||");
-            Console.WriteLine("||------------------------------||");
-            Console.WriteLine("|| 3: Check Backpack Stock      ||");
-            Console.WriteLine("||------------------------------||");
-            Console.WriteLine("|| 4: Check Wallet Stock        ||");
-            Console.WriteLine("||------------------------------||");
-            Console.WriteLine("|| 5: Check Belt Stock          ||");
-            Console.WriteLine("||------------------------------||\n");
+            Console.Clear();
+            var table = new ConsoleTable("Accessorized Categories");
+            table.AddRow("1: Check Jewlery Stock");
+            table.AddRow("2: Check Stickers Stock");
+            table.AddRow("3: Check Backpack Stock");
+            table.AddRow("4: Check Wallet Stock");
+            table.AddRow("5: Check Belt Stock");
+            table.Write(Format.Alternative);
             var userInput = Convert.ToInt32(Console.ReadLine());
             if (userInput == 1)
             {
