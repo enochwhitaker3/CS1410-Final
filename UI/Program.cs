@@ -1,5 +1,4 @@
-﻿using System.IO;
-using ConsoleTables;
+﻿using ConsoleTables;
 using static clothes.clothingUI;
 using static skateboarding.skateboardingUI;
 using static accessories.accessoriesUI;
@@ -8,57 +7,9 @@ namespace main
     public class Program
     {
 
-        interface IMerchandise
+        public static void Main()
         {
-            string Brand { get; set; }
-            double Price { get; set; }
-
-        }
-
-        public class Clothing : IMerchandise
-        {
-            public string _brand; public double _price; public string _size; public string _color; public string _gender;
-            public string Brand { get; set; }
-            public double Price { get; set; }
-            public Clothing(string Brand, double Price, string Size, string Color, string Gender)
-            {
-                this._brand = Brand;
-                this._price = Price;
-                this._size = Size;
-                this._color = Color;
-                this._gender = Gender;
-            }
-        }
-        public class Skating : IMerchandise
-        {
-            public string _brand; public double _price; public string _size;
-            public string Brand { get; set; }
-            public double Price { get; set; }
-            public Skating(string Brand, double Price, string Size)
-            {
-                this._brand = Brand;
-                this._price = Price;
-                this._size = Size;
-            }
-        }
-        public class Accessories : IMerchandise
-        {
-            public string _brand; public double _price; public string _material; public string _gender;
-            public string Brand { get; set; }
-            public double Price { get; set; }
-            public Accessories(string Brand, double Price, string Material, string Gender)
-            {
-                this._brand = Brand;
-                this._price = Price;
-                this._material = Material;
-                this._gender = Gender;
-            }
-        }
-        public static void mainUI()
-        {
-            /*Clothing newClothing = new Clothing("adidas", 3.99, "small", "blue", "male");
-            newClothing._price = 4.99;
-            Console.WriteLine(newClothing._price);*/
+            
 
             Console.Clear();
             Console.WriteLine("Please Enter Your Name");
@@ -129,11 +80,6 @@ namespace main
                 Thread.Sleep(1000);
                 goto Start;
             }
-        }
-        public static void Main()
-        {
-            mainUI();
-
         }
     }
 }
