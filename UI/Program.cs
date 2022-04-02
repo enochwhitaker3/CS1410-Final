@@ -6,11 +6,8 @@ namespace main
 {
     public class Program
     {
-
         public static void Main()
         {
-            
-
             Console.Clear();
             Console.WriteLine("Please Enter Your Name");
             string user = Console.ReadLine();
