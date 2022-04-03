@@ -1,8 +1,8 @@
 namespace accessories
 {
-    class Program
+    public class Program
     {
-        public class Accessories : IMerchandise
+        public class Accessories : Merchandise
         {
             public string _brand; public double _price; public string _material; public string _gender;
             public string Brand { get; set; }

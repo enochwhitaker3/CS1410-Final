@@ -1,8 +1,8 @@
 namespace skateboarding
 {
-    class Program
+    public class Program
     {
-        public class Skateboarding : IMerchandise
+        public class Skateboarding : Merchandise
         {
             public string _brand; public double _price; public string _size;
             public string Brand { get; set; }

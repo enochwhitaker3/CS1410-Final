@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 namespace clothing
 {
-    class Program
+    public class Program
     {
-        public class Clothing : IMerchandise
+        public class Clothing : Merchandise
         {
             public string _brand; public double _price; public string _size; public string _color; public string _gender;
             public string Brand { get; set; }
@@ -16,11 +17,11 @@ namespace clothing
                 this._gender = Gender;
             }
         }
-            
-        
+        // method in Clothing.cs called "public string DisplayItems()"
     }
-
 }
+
+
 
 
 
