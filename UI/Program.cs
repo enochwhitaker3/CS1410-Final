@@ -1,5 +1,4 @@
 ﻿using ConsoleTables;
-using System.Collections.Generic;
 using static clothing.Program;
 using static skateboarding.Program;
 using static accessories.Program;
