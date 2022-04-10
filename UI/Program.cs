@@ -8,13 +8,12 @@ namespace main
     {
         public static void Main()
         {
-            Clothing placeHolderTop = new Clothing("False P", 17.99, "X-Large", "White", "Mens");
-            Clothing placeHolderTop2 = new Clothing("Empyre", 19.99, "Small", "Yellow", "Women's");
+            Clothing placeHolderTop = new Clothing("False P", 17.99, "X-Large", "White", "Mens", 5, Clothing.ClothingType.Tops);   
+            Clothing placeHolderTop2 = new Clothing("Empyre", 19.99, "Small", "Yellow", "Women's", 3, Clothing.ClothingType.Tops);
             List<Clothing> Memory = new List<Clothing>();
             Memory.Add(placeHolderTop);
             Memory.Add(placeHolderTop2);
             int i = 0;
-
             Console.Clear();
             Console.WriteLine("Please Enter Your Name");
             string user = Console.ReadLine();
@@ -40,51 +39,59 @@ namespace main
                 clothingTable.AddRow("5: Check Shoes Stock");
                 clothingTable.Write(Format.Alternative);
                 var clothingInput = Convert.ToInt32(Console.ReadLine());
-                if (clothingInput == 2)
+                switch (clothingInput)
                 {
-                    i = 0;
-                    Console.Clear();
-                    Console.WriteLine("                 [Tops Stock]       ");
-                    var topsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender");
-                    foreach(Clothing item in Memory)
-                    {
-                        topsTable.AddRow(Memory[i]._brand, Memory[i]._price, Memory[i]._size, Memory[i]._color, Memory[i]._gender);
-                        i = i + 1;
-                    }
-
-                    topsTable.Write(Format.MarkDown);
-                    while(true)
-                    {
-                        Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                        int input = Convert.ToInt32(Console.ReadLine());
-                        switch (input)
-                        {
-                            case 1:
-                                Console.WriteLine("editing in progress.....");
-                                break;
-                            case 2:
-                                //could be in Program.cs 
-                                Console.Clear();
-                                Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
-                                Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
-                                Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
-                                Console.WriteLine("Please Enter The Color: "); string _color = Console.ReadLine();
-                                Console.WriteLine("Please Enter The Gender: "); string _gender = Console.ReadLine();
-                                Clothing newTop = new Clothing(_brand, _price, _size, _color, _gender);
-                                Memory.Add(newTop);
-                                topsTable.AddRow(Memory[i]._brand, Memory[i]._price, Memory[i]._size, Memory[i]._color, Memory[i]._gender);
-                                Console.Clear();
-                                topsTable.Write(Format.MarkDown);
-                                
-                                break;
-                            case 3:
-                                goto clothingStart;
-                        }
-
-                    }
                     
+                    case 2:
+                        {  
+                            i = 0;
+                            Console.Clear();
+                            Console.WriteLine("                     [Tops Stock]       ");
+                            var topsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
+                            foreach (var item in Memory)
+                            {
+                                topsTable.AddRow(Memory[i]._brand, Memory[i]._price, Memory[i]._size, Memory[i]._color, Memory[i]._gender, Memory[i]._quantity);
+                                i = i + 1;
+                            }
 
+                            topsTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int topInput = Convert.ToInt32(Console.ReadLine());
+                                switch (topInput)
+                                {
+                                    case 1:
+                                        Console.WriteLine("editing in progress.....");
+
+                                        break;
+                                    case 2:
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Color: "); string _color = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Gender: "); string _gender = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Clothing.ClothingType _type = Clothing.ClothingType.Tops;
+                                        Clothing newTop = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
+                                        Memory.Add(newTop);
+                                        topsTable.AddRow(Memory[i]._brand, Memory[i]._price, Memory[i]._size, Memory[i]._color, Memory[i]._gender, Memory[i]._quantity);
+                                        Console.Clear();
+                                        topsTable.Write(Format.MarkDown);
+
+                                        break;
+                                    case 3:
+                                        goto clothingStart;
+                                }
+
+                            }
+
+ 
+                        }
+                        
                 }
+
             }
             else if (userInput == 2)
             {
