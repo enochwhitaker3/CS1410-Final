@@ -17,7 +17,6 @@ namespace clothing
             public string Brand { get; set; }
             public double Price { get; set; }
             public int Quantity { get; set; }
-            public ClothingType Type {get; set;}
 
             public Clothing(string Brand, double Price, string Size, string Color, string Gender, int Quantity, ClothingType Type)
             {

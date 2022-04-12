@@ -8,11 +8,14 @@ namespace main
     {
         public static void Main()
         {
-            Clothing placeHolderTop = new Clothing("False P", 17.99, "X-Large", "White", "Mens", 5, Clothing.ClothingType.Tops);   
+            Clothing placeHolderTop = new Clothing("False P", 17.99, "X-Large", "White", "Mens", 5, Clothing.ClothingType.Tops);
             Clothing placeHolderTop2 = new Clothing("Empyre", 19.99, "Small", "Yellow", "Women's", 3, Clothing.ClothingType.Tops);
+            Clothing placeHolderHat = new Clothing("hatbrand", 19.99, "medium", "black", "unisex", 3, Clothing.ClothingType.Hats);
             List<Clothing> Memory = new List<Clothing>();
+
             Memory.Add(placeHolderTop);
             Memory.Add(placeHolderTop2);
+            Memory.Add(placeHolderHat);
             int i = 0;
             Console.Clear();
             Console.WriteLine("Please Enter Your Name");
@@ -27,7 +30,7 @@ namespace main
             table.AddRow("3: Accessorized Merchandise");
             table.Write(Format.Alternative);
             var userInput = Convert.ToInt32(Console.ReadLine());
-            if (userInput == 1)
+            if (userInput == 1) // Clothing Merchandise Page
             {
             clothingStart:
                 Console.Clear();
@@ -41,16 +44,62 @@ namespace main
                 var clothingInput = Convert.ToInt32(Console.ReadLine());
                 switch (clothingInput)
                 {
-                    
-                    case 2:
-                        {  
+                    case 1: // Hats : Clothimg
+                        {
                             i = 0;
+                            Console.Clear();
+                            Console.WriteLine("                     [Hats Stock]       ");
+                            var hatsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
+                            foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Hats))
+                            {
+                                hatsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
+                                i = i + 1;
+                            }
+
+                            hatsTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int hatInput = Convert.ToInt32(Console.ReadLine());
+                                switch (hatInput)
+                                {
+                                    case 1:
+                                        Console.WriteLine("editing in progress.....");
+
+                                        break;
+                                    case 2:
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Color: "); string _color = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Gender: "); string _gender = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Clothing.ClothingType _type = Clothing.ClothingType.Hats;
+                                        Clothing newHat = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
+                                        Memory.Add(newHat);
+                                        hatsTable.AddRow(newHat._brand, newHat._price, newHat._size, newHat._color, newHat._gender, newHat._quantity);
+                                        Console.Clear();
+                                        hatsTable.Write(Format.MarkDown);
+
+                                        break;
+                                    case 3:
+                                        goto clothingStart;
+                                }
+
+                            }
+
+
+                        }
+                    case 2: // Tops : Clothing
+                        {
+                            i=0;
                             Console.Clear();
                             Console.WriteLine("                     [Tops Stock]       ");
                             var topsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-                            foreach (var item in Memory)
+                            foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Tops))
                             {
-                                topsTable.AddRow(Memory[i]._brand, Memory[i]._price, Memory[i]._size, Memory[i]._color, Memory[i]._gender, Memory[i]._quantity);
+                                topsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
                                 i = i + 1;
                             }
 
@@ -76,7 +125,7 @@ namespace main
                                         Clothing.ClothingType _type = Clothing.ClothingType.Tops;
                                         Clothing newTop = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
                                         Memory.Add(newTop);
-                                        topsTable.AddRow(Memory[i]._brand, Memory[i]._price, Memory[i]._size, Memory[i]._color, Memory[i]._gender, Memory[i]._quantity);
+                                        topsTable.AddRow(newTop._brand, newTop._price, newTop._size, newTop._color, newTop._gender, newTop._quantity);
                                         Console.Clear();
                                         topsTable.Write(Format.MarkDown);
 
@@ -87,13 +136,13 @@ namespace main
 
                             }
 
- 
+
                         }
-                        
+
                 }
 
             }
-            else if (userInput == 2)
+            else if (userInput == 2) // Skateboarding Merchandise Page
             {
                 Console.Clear();
                 var skateTable = new ConsoleTable("Skateboarding Categories");
@@ -141,7 +190,7 @@ namespace main
                     }
                 }
             }
-            else if (userInput == 3)
+            else if (userInput == 3) // Accessorized Merchandise Page
             {
                 Console.Clear();
                 var accessoriesTable = new ConsoleTable("Accessorized Categories");
