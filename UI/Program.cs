@@ -13,15 +13,15 @@ namespace main
             Clothing placeHolderBottom = new Clothing("Empyre", 45.50, "medium", "Blue", "Womens", 2, Clothing.ClothingType.Bottoms);
             Clothing placeHolderSock = new Clothing("Cali-Wear", 5.99, "One-Size", "White", "Womens", 20, Clothing.ClothingType.Socks);
             Clothing placeHolderShoe = new Clothing("Nike", 65.99, "12 US", "White", "Mens", 4, Clothing.ClothingType.Shoes);
-            List<Clothing> Memory = new List<Clothing>();
+            List<Clothing> clothingMemory = new List<Clothing>();
             List<Skateboarding> skateMemory = new List<Skateboarding>();
             List<Accessories> accessoriesMemory = new List<Accessories>();
 
-            Memory.Add(placeHolderTop);
-            Memory.Add(placeHolderHat);
-            Memory.Add(placeHolderBottom);
-            Memory.Add(placeHolderSock);
-            Memory.Add(placeHolderShoe);
+            clothingMemory.Add(placeHolderTop);
+            clothingMemory.Add(placeHolderHat);
+            clothingMemory.Add(placeHolderBottom);
+            clothingMemory.Add(placeHolderSock);
+            clothingMemory.Add(placeHolderShoe);
 
             Console.Clear();
             Console.WriteLine("Please Enter Your Name");
@@ -59,7 +59,7 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Hats Stock]       ");
                             var hatsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-                            foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Hats))
+                            foreach (var item in clothingMemory.Where(c => c._type == Clothing.ClothingType.Hats))
                             {
                                 hatsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
                             }
@@ -88,7 +88,7 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Clothing.ClothingType _type = Clothing.ClothingType.Hats;
                                         Clothing newHat = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
-                                        Memory.Add(newHat);
+                                        clothingMemory.Add(newHat);
                                         hatsTable.AddRow(newHat._brand, newHat._price, newHat._size, newHat._color, newHat._gender, newHat._quantity);
                                         Console.Clear();
                                         hatsTable.Write(Format.MarkDown);
@@ -107,7 +107,7 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Tops Stock]       ");
                             var topsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-                            foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Tops))
+                            foreach (var item in clothingMemory.Where(c => c._type == Clothing.ClothingType.Tops))
                             {
                                 topsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
                             }
@@ -133,7 +133,7 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Clothing.ClothingType _type = Clothing.ClothingType.Tops;
                                         Clothing newTop = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
-                                        Memory.Add(newTop);
+                                        clothingMemory.Add(newTop);
                                         topsTable.AddRow(newTop._brand, newTop._price, newTop._size, newTop._color, newTop._gender, newTop._quantity);
                                         Console.Clear();
                                         topsTable.Write(Format.MarkDown);
@@ -150,7 +150,7 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Bottoms Stock]       ");
                             var bottomsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-                            foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Bottoms))
+                            foreach (var item in clothingMemory.Where(c => c._type == Clothing.ClothingType.Bottoms))
                             {
                                 bottomsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
                             }
@@ -176,7 +176,7 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Clothing.ClothingType _type = Clothing.ClothingType.Bottoms;
                                         Clothing newBottom = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
-                                        Memory.Add(newBottom);
+                                        clothingMemory.Add(newBottom);
                                         bottomsTable.AddRow(newBottom._brand, newBottom._price, newBottom._size, newBottom._color, newBottom._gender, newBottom._quantity);
                                         Console.Clear();
                                         bottomsTable.Write(Format.MarkDown);
@@ -194,7 +194,7 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Socks Stock]       ");
                             var socksTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-                            foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Socks))
+                            foreach (var item in clothingMemory.Where(c => c._type == Clothing.ClothingType.Socks))
                             {
                                 socksTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
                             }
@@ -220,7 +220,7 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Clothing.ClothingType _type = Clothing.ClothingType.Socks;
                                         Clothing newSock = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
-                                        Memory.Add(newSock);
+                                        clothingMemory.Add(newSock);
                                         socksTable.AddRow(newSock._brand, newSock._price, newSock._size, newSock._color, newSock._gender, newSock._quantity);
                                         Console.Clear();
                                         socksTable.Write(Format.MarkDown);
@@ -237,7 +237,7 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Shoes Stock]       ");
                             var shoesTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-                            foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Shoes))
+                            foreach (var item in clothingMemory.Where(c => c._type == Clothing.ClothingType.Shoes))
                             {
                                 shoesTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
                             }
@@ -263,7 +263,7 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Clothing.ClothingType _type = Clothing.ClothingType.Shoes;
                                         Clothing newShoe = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
-                                        Memory.Add(newShoe);
+                                        clothingMemory.Add(newShoe);
                                         shoesTable.AddRow(newShoe._brand, newShoe._price, newShoe._size, newShoe._color, newShoe._gender, newShoe._quantity);
                                         Console.Clear();
                                         shoesTable.Write(Format.MarkDown);
@@ -529,6 +529,7 @@ namespace main
             }
             else if (userInput == 3) // Accessorized Merchandise Page
             {
+            accessoriesStart:
                 Console.Clear();
                 var accessoriesTable = new ConsoleTable("Accessorized Categories");
                 accessoriesTable.AddRow("1: Check Jewlery Stock");
@@ -536,9 +537,239 @@ namespace main
                 accessoriesTable.AddRow("3: Check Backpack Stock");
                 accessoriesTable.AddRow("4: Check Wallet Stock");
                 accessoriesTable.AddRow("5: Check Belt Stock");
+                accessoriesTable.AddRow("6: Exit To Main Menu");
                 accessoriesTable.Write(Format.Alternative);
                 var accessoriesInput = Convert.ToInt32(Console.ReadLine());
+                switch (accessoriesInput)
+                {
+                    case 1: // Jewlery : Accessories
+                        {
+                            Console.Clear();
+                            Console.WriteLine("           [Jewlery Stock]");
+                            var jewleryTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
+                            foreach (var item in accessoriesMemory.Where(c => c._type == Accessories.AccessoriesType.Jewlery))
+                            {
+                                jewleryTable.AddRow(item._brand, item._price, item._material, item._quantity);
+                            }
 
+                            jewleryTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int jewleryInput = Convert.ToInt32(Console.ReadLine());
+                                switch (jewleryInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        string input = Console.ReadLine();
+                                        jewleryTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Material: "); string _material = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Accessories.AccessoriesType _type = Accessories.AccessoriesType.Jewlery;
+                                        Accessories newJewlery = new Accessories(_brand, _price, _material, _quantity, _type);
+                                        accessoriesMemory.Add(newJewlery);
+                                        jewleryTable.AddRow(newJewlery._brand, newJewlery._price, newJewlery._material, newJewlery._quantity);
+                                        Console.Clear();
+                                        jewleryTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 3: // Exit
+                                        goto accessoriesStart;
+                                }
+
+                            }
+
+                        }
+                    case 2: // Stickers : Accessories
+                        {
+                            Console.Clear();
+                            Console.WriteLine("          [Stickers Stock]");
+                            var stickerTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
+                            foreach (var item in accessoriesMemory.Where(c => c._type == Accessories.AccessoriesType.Stickers))
+                            {
+                                stickerTable.AddRow(item._brand, item._price, item._material, item._quantity);
+                            }
+
+                            stickerTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int stickerInput = Convert.ToInt32(Console.ReadLine());
+                                switch (stickerInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        string input = Console.ReadLine();
+                                        stickerTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Material: "); string _material = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Accessories.AccessoriesType _type = Accessories.AccessoriesType.Stickers;
+                                        Accessories newSticker = new Accessories(_brand, _price, _material, _quantity, _type);
+                                        accessoriesMemory.Add(newSticker);
+                                        stickerTable.AddRow(newSticker._brand, newSticker._price, newSticker._material, newSticker._quantity);
+                                        Console.Clear();
+                                        stickerTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 3: // Exit
+                                        goto accessoriesStart;
+                                }
+
+                            }
+                        }
+                    case 3: // Backpacks : Accessories
+                        {
+                            Console.Clear();
+                            Console.WriteLine("          [Backpack Stock]");
+                            var backpackTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
+                            foreach (var item in accessoriesMemory.Where(c => c._type == Accessories.AccessoriesType.Backpack))
+                            {
+                                backpackTable.AddRow(item._brand, item._price, item._material, item._quantity);
+                            }
+
+                            backpackTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int backpackInput = Convert.ToInt32(Console.ReadLine());
+                                switch (backpackInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        string input = Console.ReadLine();
+                                        backpackTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Material: "); string _material = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Accessories.AccessoriesType _type = Accessories.AccessoriesType.Backpack;
+                                        Accessories newBackPack = new Accessories(_brand, _price, _material, _quantity, _type);
+                                        accessoriesMemory.Add(newBackPack);
+                                        backpackTable.AddRow(newBackPack._brand, newBackPack._price, newBackPack._material, newBackPack._quantity);
+                                        Console.Clear();
+                                        backpackTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 3: // Exit
+                                        goto accessoriesStart;
+                                }
+
+                            }
+                        }
+
+                    case 4: // Wallet : Accessories
+                        {
+                            Console.Clear();
+                            Console.WriteLine("           [Wallet Stock]");
+                            var walletTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
+                            foreach (var item in accessoriesMemory.Where(c => c._type == Accessories.AccessoriesType.Wallet))
+                            {
+                                walletTable.AddRow(item._brand, item._price, item._material, item._quantity);
+                            }
+
+                            walletTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int walletInput = Convert.ToInt32(Console.ReadLine());
+                                switch (walletInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        string input = Console.ReadLine();
+                                        walletTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Material: "); string _material = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Accessories.AccessoriesType _type = Accessories.AccessoriesType.Wallet;
+                                        Accessories newWallet = new Accessories(_brand, _price, _material, _quantity, _type);
+                                        accessoriesMemory.Add(newWallet);
+                                        walletTable.AddRow(newWallet._brand, newWallet._price, newWallet._material, newWallet._quantity);
+                                        Console.Clear();
+                                        walletTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 3: // Exit
+                                        goto accessoriesStart;
+                                }
+
+                            }
+                        }
+                    case 5: // Belt : Accessories
+                        {
+                            Console.Clear();
+                            Console.WriteLine("            [Belt Stock]");
+                            var beltTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
+                            foreach (var item in accessoriesMemory.Where(c => c._type == Accessories.AccessoriesType.Belt))
+                            {
+                                beltTable.AddRow(item._brand, item._price, item._material, item._quantity);
+                            }
+
+                            beltTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int beltInput = Convert.ToInt32(Console.ReadLine());
+                                switch (beltInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        string input = Console.ReadLine();
+                                        beltTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Material: "); string _material = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Accessories.AccessoriesType _type = Accessories.AccessoriesType.Belt;
+                                        Accessories newBelt = new Accessories(_brand, _price, _material, _quantity, _type);
+                                        accessoriesMemory.Add(newBelt);
+                                        beltTable.AddRow(newBelt._brand, newBelt._price, newBelt._material, newBelt._quantity);
+                                        Console.Clear();
+                                        beltTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 3: // Exit
+                                        goto accessoriesStart;
+                                }
+
+                            }
+                        }
+                    case 6: // Exit
+                        {
+                            goto Start;
+
+                        }
+                }
             }
             else
             {
