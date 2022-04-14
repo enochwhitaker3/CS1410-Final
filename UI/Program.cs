@@ -9,27 +9,36 @@ namespace main
         public static void Main()
         {
             Clothing placeHolderTop = new Clothing("False P", 17.99, "X-Large", "White", "Mens", 5, Clothing.ClothingType.Tops);
-            Clothing placeHolderTop2 = new Clothing("Empyre", 19.99, "Small", "Yellow", "Women's", 3, Clothing.ClothingType.Tops);
-            Clothing placeHolderHat = new Clothing("hatbrand", 19.99, "medium", "black", "unisex", 3, Clothing.ClothingType.Hats);
+            Clothing placeHolderHat = new Clothing("Angel", 10.99, "One-Size", "Black", "unisex", 3, Clothing.ClothingType.Hats);
+            Clothing placeHolderBottom = new Clothing("Empyre", 45.50, "medium", "Blue", "Womens", 2, Clothing.ClothingType.Bottoms);
+            Clothing placeHolderSock = new Clothing("Cali-Wear", 5.99, "One-Size", "White", "Womens", 20, Clothing.ClothingType.Socks);
+            Clothing placeHolderShoe = new Clothing("Nike", 65.99, "12 US", "White", "Mens", 4, Clothing.ClothingType.Shoes);
             List<Clothing> Memory = new List<Clothing>();
+            List<Skateboarding> skateMemory = new List<Skateboarding>();
+            List<Accessories> accessoriesMemory = new List<Accessories>();
 
             Memory.Add(placeHolderTop);
-            Memory.Add(placeHolderTop2);
             Memory.Add(placeHolderHat);
-            int i = 0;
+            Memory.Add(placeHolderBottom);
+            Memory.Add(placeHolderSock);
+            Memory.Add(placeHolderShoe);
+
             Console.Clear();
             Console.WriteLine("Please Enter Your Name");
             string user = Console.ReadLine();
+
         Start:
+
             Console.Clear();
             Console.WriteLine($"Welcome Back Manager {user} to ACME Skate Shop's Inventory!");
-            Console.WriteLine("\nWhich Stock Would You Like To Check Today?");
+            Console.WriteLine("\nWhich Stock Would You Like To Check Today?\n");
             var table = new ConsoleTable("Categories");
             table.AddRow("1: Clothing Merchandise");
             table.AddRow("2: Skateboarding Merchandise");
             table.AddRow("3: Accessorized Merchandise");
             table.Write(Format.Alternative);
             var userInput = Convert.ToInt32(Console.ReadLine());
+
             if (userInput == 1) // Clothing Merchandise Page
             {
             clothingStart:
@@ -40,20 +49,19 @@ namespace main
                 clothingTable.AddRow("3: Check Bottoms Stock");
                 clothingTable.AddRow("4: Check Socks Stock");
                 clothingTable.AddRow("5: Check Shoes Stock");
+                clothingTable.AddRow("6: Exit To Main Menu");
                 clothingTable.Write(Format.Alternative);
                 var clothingInput = Convert.ToInt32(Console.ReadLine());
                 switch (clothingInput)
                 {
                     case 1: // Hats : Clothimg
                         {
-                            i = 0;
                             Console.Clear();
                             Console.WriteLine("                     [Hats Stock]       ");
                             var hatsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
                             foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Hats))
                             {
                                 hatsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
-                                i = i + 1;
                             }
 
                             hatsTable.Write(Format.MarkDown);
@@ -63,11 +71,14 @@ namespace main
                                 int hatInput = Convert.ToInt32(Console.ReadLine());
                                 switch (hatInput)
                                 {
-                                    case 1:
-                                        Console.WriteLine("editing in progress.....");
-
+                                    case 1: // Add Quantity
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        string input = Console.ReadLine();
+                                        hatsTable.Write(Format.MarkDown);
                                         break;
-                                    case 2:
+
+                                    case 2: // Add new item
                                         Console.Clear();
                                         Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
                                         Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
@@ -81,9 +92,9 @@ namespace main
                                         hatsTable.AddRow(newHat._brand, newHat._price, newHat._size, newHat._color, newHat._gender, newHat._quantity);
                                         Console.Clear();
                                         hatsTable.Write(Format.MarkDown);
-
                                         break;
-                                    case 3:
+
+                                    case 3: // Exit
                                         goto clothingStart;
                                 }
 
@@ -93,14 +104,12 @@ namespace main
                         }
                     case 2: // Tops : Clothing
                         {
-                            i=0;
                             Console.Clear();
                             Console.WriteLine("                     [Tops Stock]       ");
                             var topsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
                             foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Tops))
                             {
                                 topsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
-                                i = i + 1;
                             }
 
                             topsTable.Write(Format.MarkDown);
@@ -110,11 +119,11 @@ namespace main
                                 int topInput = Convert.ToInt32(Console.ReadLine());
                                 switch (topInput)
                                 {
-                                    case 1:
+                                    case 1: // Add Quantity
                                         Console.WriteLine("editing in progress.....");
 
                                         break;
-                                    case 2:
+                                    case 2: // Add new item
                                         Console.Clear();
                                         Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
                                         Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
@@ -130,20 +139,152 @@ namespace main
                                         topsTable.Write(Format.MarkDown);
 
                                         break;
-                                    case 3:
+                                    case 3: // Exit
                                         goto clothingStart;
                                 }
 
                             }
+                        }
+                    case 3: // Bottoms : Clothing
+                        {
+                            Console.Clear();
+                            Console.WriteLine("                     [Bottoms Stock]       ");
+                            var bottomsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
+                            foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Bottoms))
+                            {
+                                bottomsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
+                            }
 
+                            bottomsTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int bottomsInput = Convert.ToInt32(Console.ReadLine());
+                                switch (bottomsInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.WriteLine("editing in progress.....");
 
+                                        break;
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Color: "); string _color = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Gender: "); string _gender = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Clothing.ClothingType _type = Clothing.ClothingType.Bottoms;
+                                        Clothing newBottom = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
+                                        Memory.Add(newBottom);
+                                        bottomsTable.AddRow(newBottom._brand, newBottom._price, newBottom._size, newBottom._color, newBottom._gender, newBottom._quantity);
+                                        Console.Clear();
+                                        bottomsTable.Write(Format.MarkDown);
+
+                                        break;
+                                    case 3: // Exit
+                                        goto clothingStart;
+                                }
+
+                            }
                         }
 
+                    case 4: // Socks : Clothing
+                        {
+                            Console.Clear();
+                            Console.WriteLine("                     [Socks Stock]       ");
+                            var socksTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
+                            foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Socks))
+                            {
+                                socksTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
+                            }
+
+                            socksTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int socksInput = Convert.ToInt32(Console.ReadLine());
+                                switch (socksInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.WriteLine("editing in progress.....");
+
+                                        break;
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Color: "); string _color = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Gender: "); string _gender = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Clothing.ClothingType _type = Clothing.ClothingType.Socks;
+                                        Clothing newSock = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
+                                        Memory.Add(newSock);
+                                        socksTable.AddRow(newSock._brand, newSock._price, newSock._size, newSock._color, newSock._gender, newSock._quantity);
+                                        Console.Clear();
+                                        socksTable.Write(Format.MarkDown);
+
+                                        break;
+                                    case 3: // Exit
+                                        goto clothingStart;
+                                }
+
+                            }
+                        }
+                    case 5: // Shoes : Clothing
+                        {
+                            Console.Clear();
+                            Console.WriteLine("                     [Shoes Stock]       ");
+                            var shoesTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
+                            foreach (var item in Memory.Where(c => c._type == Clothing.ClothingType.Shoes))
+                            {
+                                shoesTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
+                            }
+
+                            shoesTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int shoesInput = Convert.ToInt32(Console.ReadLine());
+                                switch (shoesInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.WriteLine("editing in progress.....");
+
+                                        break;
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Color: "); string _color = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Gender: "); string _gender = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Clothing.ClothingType _type = Clothing.ClothingType.Shoes;
+                                        Clothing newShoe = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
+                                        Memory.Add(newShoe);
+                                        shoesTable.AddRow(newShoe._brand, newShoe._price, newShoe._size, newShoe._color, newShoe._gender, newShoe._quantity);
+                                        Console.Clear();
+                                        shoesTable.Write(Format.MarkDown);
+
+                                        break;
+                                    case 3: // Exit
+                                        goto clothingStart;
+                                }
+
+                            }
+                        }
+                    case 6: // Exit
+                        {
+                            goto Start;
+                        }
                 }
 
             }
             else if (userInput == 2) // Skateboarding Merchandise Page
             {
+            skateboardingStart:
                 Console.Clear();
                 var skateTable = new ConsoleTable("Skateboarding Categories");
                 skateTable.AddRow("1: Check Grip Tape Stock");
@@ -151,44 +292,240 @@ namespace main
                 skateTable.AddRow("3: Check Trucks Stock");
                 skateTable.AddRow("4: Check Bearings Stock");
                 skateTable.AddRow("5: Check Wheel Stock");
+                skateTable.AddRow("6: Exit To Main Menu");
                 skateTable.Write(Format.Alternative);
                 var skateInput = Convert.ToInt32(Console.ReadLine());
-                if (skateInput == 1)
+                switch (skateInput)
                 {
-                    Console.Clear();
-                    Skateboarding placeHolderGripTape = new Skateboarding("Thrasher", 14.99, "X-Large");
-                    Skateboarding placeHolderGripTape2 = new Skateboarding("Mob", 5.99, "Small");
-                    Console.Clear();
-                    Console.WriteLine("       [Grip Tape Stock]       ");
-                    var griptapeTable = new ConsoleTable("Brand", "Price", "Size");
-                    griptapeTable.AddRow(placeHolderGripTape._brand, placeHolderGripTape._price, placeHolderGripTape._size)
-                    .AddRow(placeHolderGripTape2._brand, placeHolderGripTape2._price, placeHolderGripTape2._size);
-                    table.Write(Format.MarkDown);
-                    for (int j = 0; i < 100; j++)
-                    {
-                        Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                        int input = Convert.ToInt32(Console.ReadLine());
-                        switch (input)
+                    case 1: // Grip Tape : Skateboarding
                         {
-                            case 1:
-                                Console.WriteLine("editing in progress.....");
-                                break;
-                            case 2:
-                                Console.Clear();
-                                Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
-                                Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
-                                Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
-                                table.AddRow(_brand, _price, _size);
-                                Console.Clear();
-                                table.Write(Format.MarkDown);
-                                break;
-                            case 3:
-                                Console.WriteLine("editing in progress.....");
-                                break;
+                            Console.Clear();
+                            Console.WriteLine("        [Grip Tape Stock]");
+                            var gripTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
+                            foreach (var item in skateMemory.Where(c => c._type == Skateboarding.SkateboardType.GripTape))
+                            {
+                                gripTable.AddRow(item._brand, item._price, item._size, item._quantity);
+                            }
+
+                            gripTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int gripInput = Convert.ToInt32(Console.ReadLine());
+                                switch (gripInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        string input = Console.ReadLine();
+                                        gripTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.GripTape;
+                                        Skateboarding newGripTape = new Skateboarding(_brand, _price, _size, _quantity, _type);
+                                        skateMemory.Add(newGripTape);
+                                        gripTable.AddRow(newGripTape._brand, newGripTape._price, newGripTape._size, newGripTape._quantity);
+                                        Console.Clear();
+                                        gripTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 3: // Exit
+                                        goto skateboardingStart;
+                                }
+
+                            }
+
+
+                        }
+                    case 2: // Decks : Skateboarding
+                        {
+                            Console.Clear();
+                            Console.WriteLine("          [Deck Stock]");
+                            var deckTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
+                            foreach (var item in skateMemory.Where(c => c._type == Skateboarding.SkateboardType.Decks))
+                            {
+                                deckTable.AddRow(item._brand, item._price, item._size, item._quantity);
+                            }
+
+                            deckTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int deckInput = Convert.ToInt32(Console.ReadLine());
+                                switch (deckInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        string input = Console.ReadLine();
+                                        deckTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Decks;
+                                        Skateboarding newDeck = new Skateboarding(_brand, _price, _size, _quantity, _type);
+                                        skateMemory.Add(newDeck);
+                                        deckTable.AddRow(newDeck._brand, newDeck._price, newDeck._size, newDeck._quantity);
+                                        Console.Clear();
+                                        deckTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 3: // Exit
+                                        goto skateboardingStart;
+                                }
+
+                            }
+                        }
+                    case 3: // Trucks : Skateboarding
+                        {
+                            Console.Clear();
+                            Console.WriteLine("          [Truck Stock]");
+                            var truckTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
+                            foreach (var item in skateMemory.Where(c => c._type == Skateboarding.SkateboardType.Trucks))
+                            {
+                                truckTable.AddRow(item._brand, item._price, item._size, item._quantity);
+                            }
+
+                            truckTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int truckInput = Convert.ToInt32(Console.ReadLine());
+                                switch (truckInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        string input = Console.ReadLine();
+                                        truckTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Trucks;
+                                        Skateboarding newTruck = new Skateboarding(_brand, _price, _size, _quantity, _type);
+                                        skateMemory.Add(newTruck);
+                                        truckTable.AddRow(newTruck._brand, newTruck._price, newTruck._size, newTruck._quantity);
+                                        Console.Clear();
+                                        truckTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 3: // Exit
+                                        goto skateboardingStart;
+                                }
+
+                            }
                         }
 
-                    }
+                    case 4: // Bearings : Skateboarding
+                        {
+                            Console.Clear();
+                            Console.WriteLine("        [Bearings Stock]");
+                            var bearingTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
+                            foreach (var item in skateMemory.Where(c => c._type == Skateboarding.SkateboardType.Bearings))
+                            {
+                                bearingTable.AddRow(item._brand, item._price, item._size, item._quantity);
+                            }
+
+                            bearingTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int bearingInput = Convert.ToInt32(Console.ReadLine());
+                                switch (bearingInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        string input = Console.ReadLine();
+                                        bearingTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Bearings;
+                                        Skateboarding newBearing = new Skateboarding(_brand, _price, _size, _quantity, _type);
+                                        skateMemory.Add(newBearing);
+                                        bearingTable.AddRow(newBearing._brand, newBearing._price, newBearing._size, newBearing._quantity);
+                                        Console.Clear();
+                                        bearingTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 3: // Exit
+                                        goto skateboardingStart;
+                                }
+
+                            }
+                        }
+                    case 5: // Wheels : Skateboarding
+                        {
+                            Console.Clear();
+                            Console.WriteLine("         [Wheels Stock]");
+                            var wheelTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
+                            foreach (var item in skateMemory.Where(c => c._type == Skateboarding.SkateboardType.Wheels))
+                            {
+                                wheelTable.AddRow(item._brand, item._price, item._size, item._quantity);
+                            }
+
+                            wheelTable.Write(Format.MarkDown);
+                            while (true)
+                            {
+                                Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
+                                int wheelInput = Convert.ToInt32(Console.ReadLine());
+                                switch (wheelInput)
+                                {
+                                    case 1: // Add Quantity
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        string input = Console.ReadLine();
+                                        wheelTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 2: // Add new item
+                                        Console.Clear();
+                                        Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
+                                        Console.WriteLine("Please Enter The Size: "); string _size = Console.ReadLine();
+                                        Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
+                                        Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Wheels;
+                                        Skateboarding newWheel = new Skateboarding(_brand, _price, _size, _quantity, _type);
+                                        skateMemory.Add(newWheel);
+                                        wheelTable.AddRow(newWheel._brand, newWheel._price, newWheel._size, newWheel._quantity);
+                                        Console.Clear();
+                                        wheelTable.Write(Format.MarkDown);
+                                        break;
+
+                                    case 3: // Exit
+                                        goto skateboardingStart;
+                                }
+
+                            }
+                        }
+                    case 6: // Exit
+                        {
+                            goto Start;
+                        }
                 }
+
             }
             else if (userInput == 3) // Accessorized Merchandise Page
             {
@@ -201,43 +538,7 @@ namespace main
                 accessoriesTable.AddRow("5: Check Belt Stock");
                 accessoriesTable.Write(Format.Alternative);
                 var accessoriesInput = Convert.ToInt32(Console.ReadLine());
-                if (accessoriesInput == 1)
-                {
-                    Console.Clear();
-                    Accessories placeHolderRing = new Accessories("False P", 8.99, "Silver", "Men's");
-                    Accessories placeHolderNecklace = new Accessories("Stark's", 24.99, "Gold", "Women's");
-                    Console.Clear();
-                    Console.WriteLine("            [Jewlery Stock]       ");
-                    var jewleryTable = new ConsoleTable("Brand", "Price", "Material", "Gender");
-                    jewleryTable.AddRow(placeHolderRing._brand, placeHolderRing._price, placeHolderRing._material, placeHolderRing._gender)
-                    .AddRow(placeHolderNecklace._brand, placeHolderNecklace._price, placeHolderNecklace._material, placeHolderNecklace._gender);
-                    table.Write(Format.MarkDown);
-                    for (int j = 0; i < 100; j++)
-                    {
-                        Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                        int input = Convert.ToInt32(Console.ReadLine());
-                        switch (input)
-                        {
-                            case 1:
-                                Console.WriteLine("editing in progress.....");
-                                break;
-                            case 2:
-                                Console.Clear();
-                                Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
-                                Console.WriteLine("Please Enter The Price: "); double _price = Convert.ToDouble(Console.ReadLine());
-                                Console.WriteLine("Please Enter The Material: "); string _material = Console.ReadLine();
-                                Console.WriteLine("Please Enter The Gender: "); string _gender = Console.ReadLine();
-                                table.AddRow(_brand, _price, _material, _gender);
-                                Console.Clear();
-                                table.Write(Format.MarkDown);
-                                break;
-                            case 3:
-                                Console.WriteLine("editing in progress.....");
-                                break;
-                        }
 
-                    }
-                }
             }
             else
             {
