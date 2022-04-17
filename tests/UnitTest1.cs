@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using static clothing.Program;
+using clothing;
 
 namespace tests;
 

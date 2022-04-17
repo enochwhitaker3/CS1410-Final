@@ -1,5 +1,5 @@
 ﻿using ConsoleTables;
-using static clothing.Program;
+using clothing;
 using static skateboarding.Program;
 using static accessories.Program;
 namespace main
@@ -8,14 +8,15 @@ namespace main
     {
         public static void Main()
         {
+            List<Clothing> clothingMemory = new List<Clothing>();
+            List<Skateboarding> skateMemory = new List<Skateboarding>();
+            List<Accessories> accessoriesMemory = new List<Accessories>();
             Clothing placeHolderTop = new Clothing("False P", 17.99, "X-Large", "White", "Mens", 5, Clothing.ClothingType.Tops);
             Clothing placeHolderHat = new Clothing("Angel", 10.99, "One-Size", "Black", "unisex", 3, Clothing.ClothingType.Hats);
             Clothing placeHolderBottom = new Clothing("Empyre", 45.50, "medium", "Blue", "Womens", 2, Clothing.ClothingType.Bottoms);
             Clothing placeHolderSock = new Clothing("Cali-Wear", 5.99, "One-Size", "White", "Womens", 20, Clothing.ClothingType.Socks);
             Clothing placeHolderShoe = new Clothing("Nike", 65.99, "12 US", "White", "Mens", 4, Clothing.ClothingType.Shoes);
-            List<Clothing> clothingMemory = new List<Clothing>();
-            List<Skateboarding> skateMemory = new List<Skateboarding>();
-            List<Accessories> accessoriesMemory = new List<Accessories>();
+
 
             clothingMemory.Add(placeHolderTop);
             clothingMemory.Add(placeHolderHat);
@@ -56,12 +57,18 @@ namespace main
                 {
                     case 1: // Hats : Clothimg
                         {
+
                             Console.Clear();
                             Console.WriteLine("                     [Hats Stock]       ");
                             var hatsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
+
+
+                            string hatsMemory = null;
                             foreach (var item in clothingMemory.Where(c => c._type == Clothing.ClothingType.Hats))
                             {
                                 hatsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
+                                hatsMemory = item._brand;
+
                             }
 
                             hatsTable.Write(Format.MarkDown);
@@ -74,8 +81,34 @@ namespace main
                                     case 1: // Add Quantity
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
-                                        string input = Console.ReadLine();
                                         hatsTable.Write(Format.MarkDown);
+                                        Console.WriteLine("\nEditing In Process...");
+                                        
+                                        /*string input = Console.ReadLine();
+                                        for (int i = 0; i < clothingMemory.Count; i++)
+                                        {
+                                            Console.WriteLine(hatsMemory[i]);
+                                            if (input == hatsMemory)
+                                            {
+                                                Console.WriteLine("Ya Ya");
+                                            }
+                                            else
+                                            {
+                                                i++;
+                                            }
+
+                                        }
+
+
+
+                                        string attempt = Convert.ToString(clothingMemory.Where(c => c._type == Clothing.ClothingType.Hats));
+                                        if (attempt.Contains(input))
+                                        {
+                                            Console.WriteLine("Ya Ya");
+                                        }*/
+
+
+
                                         break;
 
                                     case 2: // Add new item
