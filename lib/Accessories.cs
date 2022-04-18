@@ -12,17 +12,19 @@ namespace accessories
                 Wallet,
                 Belt
             }
-            public string _brand; public double _price; public string _material; public int _quantity; public AccessoriesType _type;
             public string Brand { get; set; }
             public double Price { get; set; }
             public int Quantity { get; set; }
+            public string Material { get; }
+            public AccessoriesType Type { get; }
+
             public Accessories(string Brand, double Price, string Material, int Quantity, AccessoriesType Type)
             {
-                this._brand = Brand;
-                this._price = Price;
-                this._material = Material;
-                this._quantity = Quantity;
-                this._type = Type;
+                this.Brand = Brand;
+                this.Price = Price;
+                this.Quantity = Quantity;
+                this.Material = Material;
+                this.Type = Type;
             }
         }
     }

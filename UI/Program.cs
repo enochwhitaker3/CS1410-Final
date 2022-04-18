@@ -62,18 +62,16 @@ namespace main
                             Console.WriteLine("                     [Hats Stock]       ");
                             var hatsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
 
-
-                            string hatsMemory = null;
-                            foreach (var item in clothingMemory.Where(c => c._type == Clothing.ClothingType.Hats))
+                            var hatsMemory = clothingMemory.Where(c => c.Type == Clothing.ClothingType.Hats);
+                            foreach (var item in hatsMemory)
                             {
-                                hatsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
-                                hatsMemory = item._brand;
-
+                                hatsTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
                             }
 
-                            hatsTable.Write(Format.MarkDown);
+                            
                             while (true)
                             {
+                                hatsTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
                                 int hatInput = Convert.ToInt32(Console.ReadLine());
                                 switch (hatInput)
@@ -82,34 +80,21 @@ namespace main
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
                                         hatsTable.Write(Format.MarkDown);
-                                        Console.WriteLine("\nEditing In Process...");
-                                        
-                                        /*string input = Console.ReadLine();
-                                        for (int i = 0; i < clothingMemory.Count; i++)
-                                        {
-                                            Console.WriteLine(hatsMemory[i]);
-                                            if (input == hatsMemory)
-                                            {
-                                                Console.WriteLine("Ya Ya");
-                                            }
-                                            else
-                                            {
-                                                i++;
-                                            }
 
+                                        string input = Console.ReadLine();
+
+                                        var match = hatsMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
                                         }
 
-
-
-                                        string attempt = Convert.ToString(clothingMemory.Where(c => c._type == Clothing.ClothingType.Hats));
-                                        if (attempt.Contains(input))
-                                        {
-                                            Console.WriteLine("Ya Ya");
-                                        }*/
-
-
-
+                                        match.Quantity ++;
+                                        Console.Clear();
+                                        hatsTable.Write(Format.MarkDown);
                                         break;
+
 
                                     case 2: // Add new item
                                         Console.Clear();
@@ -122,7 +107,7 @@ namespace main
                                         Clothing.ClothingType _type = Clothing.ClothingType.Hats;
                                         Clothing newHat = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
                                         clothingMemory.Add(newHat);
-                                        hatsTable.AddRow(newHat._brand, newHat._price, newHat._size, newHat._color, newHat._gender, newHat._quantity);
+                                        hatsTable.AddRow(newHat.Brand, newHat.Price, newHat.Size, newHat.Color, newHat.Gender, newHat.Quantity);
                                         Console.Clear();
                                         hatsTable.Write(Format.MarkDown);
                                         break;
@@ -140,9 +125,10 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Tops Stock]       ");
                             var topsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-                            foreach (var item in clothingMemory.Where(c => c._type == Clothing.ClothingType.Tops))
+                            var topsMemory = clothingMemory.Where(c => c.Type == Clothing.ClothingType.Tops);
+                            foreach (var item in topsMemory)
                             {
-                                topsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
+                                topsTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
                             }
 
                             topsTable.Write(Format.MarkDown);
@@ -153,9 +139,24 @@ namespace main
                                 switch (topInput)
                                 {
                                     case 1: // Add Quantity
-                                        Console.WriteLine("editing in progress.....");
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        topsTable.Write(Format.MarkDown);
 
+                                        string input = Console.ReadLine();
+
+                                        var match = topsMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
+                                        topsTable.Write(Format.MarkDown);
                                         break;
+
                                     case 2: // Add new item
                                         Console.Clear();
                                         Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
@@ -167,7 +168,7 @@ namespace main
                                         Clothing.ClothingType _type = Clothing.ClothingType.Tops;
                                         Clothing newTop = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
                                         clothingMemory.Add(newTop);
-                                        topsTable.AddRow(newTop._brand, newTop._price, newTop._size, newTop._color, newTop._gender, newTop._quantity);
+                                        topsTable.AddRow(newTop.Brand, newTop.Price, newTop.Size, newTop.Color, newTop.Gender, newTop.Quantity);
                                         Console.Clear();
                                         topsTable.Write(Format.MarkDown);
 
@@ -183,9 +184,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Bottoms Stock]       ");
                             var bottomsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-                            foreach (var item in clothingMemory.Where(c => c._type == Clothing.ClothingType.Bottoms))
+
+                            var bottomMemory = clothingMemory.Where(c => c.Type == Clothing.ClothingType.Bottoms);
+                            foreach (var item in bottomMemory)
                             {
-                                bottomsTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
+                                bottomsTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
                             }
 
                             bottomsTable.Write(Format.MarkDown);
@@ -196,9 +199,24 @@ namespace main
                                 switch (bottomsInput)
                                 {
                                     case 1: // Add Quantity
-                                        Console.WriteLine("editing in progress.....");
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        bottomsTable.Write(Format.MarkDown);
 
+                                        string input = Console.ReadLine();
+
+                                        var match = bottomMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
+                                        bottomsTable.Write(Format.MarkDown);
                                         break;
+
                                     case 2: // Add new item
                                         Console.Clear();
                                         Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
@@ -210,7 +228,7 @@ namespace main
                                         Clothing.ClothingType _type = Clothing.ClothingType.Bottoms;
                                         Clothing newBottom = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
                                         clothingMemory.Add(newBottom);
-                                        bottomsTable.AddRow(newBottom._brand, newBottom._price, newBottom._size, newBottom._color, newBottom._gender, newBottom._quantity);
+                                        bottomsTable.AddRow(newBottom.Brand, newBottom.Price, newBottom.Size, newBottom.Color, newBottom.Gender, newBottom.Quantity);
                                         Console.Clear();
                                         bottomsTable.Write(Format.MarkDown);
 
@@ -227,9 +245,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Socks Stock]       ");
                             var socksTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-                            foreach (var item in clothingMemory.Where(c => c._type == Clothing.ClothingType.Socks))
+
+                            var socksMemory = clothingMemory.Where(c => c.Type == Clothing.ClothingType.Socks);
+                            foreach (var item in socksMemory)
                             {
-                                socksTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
+                                socksTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
                             }
 
                             socksTable.Write(Format.MarkDown);
@@ -240,9 +260,24 @@ namespace main
                                 switch (socksInput)
                                 {
                                     case 1: // Add Quantity
-                                        Console.WriteLine("editing in progress.....");
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        socksTable.Write(Format.MarkDown);
 
+                                        string input = Console.ReadLine();
+
+                                        var match = socksMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
+                                        socksTable.Write(Format.MarkDown);
                                         break;
+
                                     case 2: // Add new item
                                         Console.Clear();
                                         Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
@@ -254,7 +289,7 @@ namespace main
                                         Clothing.ClothingType _type = Clothing.ClothingType.Socks;
                                         Clothing newSock = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
                                         clothingMemory.Add(newSock);
-                                        socksTable.AddRow(newSock._brand, newSock._price, newSock._size, newSock._color, newSock._gender, newSock._quantity);
+                                        socksTable.AddRow(newSock.Brand, newSock.Price, newSock.Size, newSock.Color, newSock.Gender, newSock.Quantity);
                                         Console.Clear();
                                         socksTable.Write(Format.MarkDown);
 
@@ -270,9 +305,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Shoes Stock]       ");
                             var shoesTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-                            foreach (var item in clothingMemory.Where(c => c._type == Clothing.ClothingType.Shoes))
+
+                            var shoesMemory = clothingMemory.Where(c => c.Type == Clothing.ClothingType.Shoes);
+                            foreach (var item in shoesMemory)
                             {
-                                shoesTable.AddRow(item._brand, item._price, item._size, item._color, item._gender, item._quantity);
+                                shoesTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
                             }
 
                             shoesTable.Write(Format.MarkDown);
@@ -283,9 +320,24 @@ namespace main
                                 switch (shoesInput)
                                 {
                                     case 1: // Add Quantity
-                                        Console.WriteLine("editing in progress.....");
+                                        Console.Clear();
+                                        Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        shoesTable.Write(Format.MarkDown);
 
+                                        string input = Console.ReadLine();
+
+                                        var match = shoesMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
+                                        shoesTable.Write(Format.MarkDown);
                                         break;
+
                                     case 2: // Add new item
                                         Console.Clear();
                                         Console.WriteLine("\nPlease Enter The Brand: "); string _brand = Console.ReadLine();
@@ -297,7 +349,7 @@ namespace main
                                         Clothing.ClothingType _type = Clothing.ClothingType.Shoes;
                                         Clothing newShoe = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
                                         clothingMemory.Add(newShoe);
-                                        shoesTable.AddRow(newShoe._brand, newShoe._price, newShoe._size, newShoe._color, newShoe._gender, newShoe._quantity);
+                                        shoesTable.AddRow(newShoe.Brand, newShoe.Price, newShoe.Size, newShoe.Color, newShoe.Gender, newShoe.Quantity);
                                         Console.Clear();
                                         shoesTable.Write(Format.MarkDown);
 
@@ -335,9 +387,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("        [Grip Tape Stock]");
                             var gripTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
-                            foreach (var item in skateMemory.Where(c => c._type == Skateboarding.SkateboardType.GripTape))
+
+                            var gripMemory = skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.GripTape);
+                            foreach (var item in gripMemory)
                             {
-                                gripTable.AddRow(item._brand, item._price, item._size, item._quantity);
+                                gripTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
 
                             gripTable.Write(Format.MarkDown);
@@ -350,7 +404,19 @@ namespace main
                                     case 1: // Add Quantity
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        gripTable.Write(Format.MarkDown);
+
                                         string input = Console.ReadLine();
+
+                                        var match = gripMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
                                         gripTable.Write(Format.MarkDown);
                                         break;
 
@@ -363,7 +429,7 @@ namespace main
                                         Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.GripTape;
                                         Skateboarding newGripTape = new Skateboarding(_brand, _price, _size, _quantity, _type);
                                         skateMemory.Add(newGripTape);
-                                        gripTable.AddRow(newGripTape._brand, newGripTape._price, newGripTape._size, newGripTape._quantity);
+                                        gripTable.AddRow(newGripTape.Brand, newGripTape.Price, newGripTape.Size, newGripTape.Quantity);
                                         Console.Clear();
                                         gripTable.Write(Format.MarkDown);
                                         break;
@@ -381,9 +447,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("          [Deck Stock]");
                             var deckTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
-                            foreach (var item in skateMemory.Where(c => c._type == Skateboarding.SkateboardType.Decks))
+
+                            var deckMemory = skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Decks);
+                            foreach (var item in skateMemory)
                             {
-                                deckTable.AddRow(item._brand, item._price, item._size, item._quantity);
+                                deckTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
 
                             deckTable.Write(Format.MarkDown);
@@ -396,7 +464,19 @@ namespace main
                                     case 1: // Add Quantity
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        deckTable.Write(Format.MarkDown);
+
                                         string input = Console.ReadLine();
+
+                                        var match = deckMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
                                         deckTable.Write(Format.MarkDown);
                                         break;
 
@@ -409,7 +489,7 @@ namespace main
                                         Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Decks;
                                         Skateboarding newDeck = new Skateboarding(_brand, _price, _size, _quantity, _type);
                                         skateMemory.Add(newDeck);
-                                        deckTable.AddRow(newDeck._brand, newDeck._price, newDeck._size, newDeck._quantity);
+                                        deckTable.AddRow(newDeck.Brand, newDeck.Price, newDeck.Size, newDeck.Quantity);
                                         Console.Clear();
                                         deckTable.Write(Format.MarkDown);
                                         break;
@@ -425,9 +505,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("          [Truck Stock]");
                             var truckTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
-                            foreach (var item in skateMemory.Where(c => c._type == Skateboarding.SkateboardType.Trucks))
+
+                            var truckMemory = skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Trucks);
+                            foreach (var item in skateMemory)
                             {
-                                truckTable.AddRow(item._brand, item._price, item._size, item._quantity);
+                                truckTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
 
                             truckTable.Write(Format.MarkDown);
@@ -440,7 +522,19 @@ namespace main
                                     case 1: // Add Quantity
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        truckTable.Write(Format.MarkDown);
+
                                         string input = Console.ReadLine();
+
+                                        var match = truckMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
                                         truckTable.Write(Format.MarkDown);
                                         break;
 
@@ -453,7 +547,7 @@ namespace main
                                         Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Trucks;
                                         Skateboarding newTruck = new Skateboarding(_brand, _price, _size, _quantity, _type);
                                         skateMemory.Add(newTruck);
-                                        truckTable.AddRow(newTruck._brand, newTruck._price, newTruck._size, newTruck._quantity);
+                                        truckTable.AddRow(newTruck.Brand, newTruck.Price, newTruck.Size, newTruck.Quantity);
                                         Console.Clear();
                                         truckTable.Write(Format.MarkDown);
                                         break;
@@ -470,9 +564,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("        [Bearings Stock]");
                             var bearingTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
-                            foreach (var item in skateMemory.Where(c => c._type == Skateboarding.SkateboardType.Bearings))
+
+                            var bearingMemory = skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Bearings);
+                            foreach (var item in bearingMemory)
                             {
-                                bearingTable.AddRow(item._brand, item._price, item._size, item._quantity);
+                                bearingTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
 
                             bearingTable.Write(Format.MarkDown);
@@ -485,7 +581,19 @@ namespace main
                                     case 1: // Add Quantity
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        bearingTable.Write(Format.MarkDown);
+
                                         string input = Console.ReadLine();
+
+                                        var match = bearingMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
                                         bearingTable.Write(Format.MarkDown);
                                         break;
 
@@ -498,7 +606,7 @@ namespace main
                                         Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Bearings;
                                         Skateboarding newBearing = new Skateboarding(_brand, _price, _size, _quantity, _type);
                                         skateMemory.Add(newBearing);
-                                        bearingTable.AddRow(newBearing._brand, newBearing._price, newBearing._size, newBearing._quantity);
+                                        bearingTable.AddRow(newBearing.Brand, newBearing.Price, newBearing.Size, newBearing.Quantity);
                                         Console.Clear();
                                         bearingTable.Write(Format.MarkDown);
                                         break;
@@ -514,9 +622,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("         [Wheels Stock]");
                             var wheelTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
-                            foreach (var item in skateMemory.Where(c => c._type == Skateboarding.SkateboardType.Wheels))
+
+                            var wheelMemory = skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Wheels);
+                            foreach (var item in wheelMemory)
                             {
-                                wheelTable.AddRow(item._brand, item._price, item._size, item._quantity);
+                                wheelTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
 
                             wheelTable.Write(Format.MarkDown);
@@ -529,7 +639,19 @@ namespace main
                                     case 1: // Add Quantity
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        wheelTable.Write(Format.MarkDown);
+
                                         string input = Console.ReadLine();
+
+                                        var match = wheelMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
                                         wheelTable.Write(Format.MarkDown);
                                         break;
 
@@ -542,7 +664,7 @@ namespace main
                                         Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Wheels;
                                         Skateboarding newWheel = new Skateboarding(_brand, _price, _size, _quantity, _type);
                                         skateMemory.Add(newWheel);
-                                        wheelTable.AddRow(newWheel._brand, newWheel._price, newWheel._size, newWheel._quantity);
+                                        wheelTable.AddRow(newWheel.Brand, newWheel.Price, newWheel.Size, newWheel.Quantity);
                                         Console.Clear();
                                         wheelTable.Write(Format.MarkDown);
                                         break;
@@ -580,9 +702,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("           [Jewlery Stock]");
                             var jewleryTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
-                            foreach (var item in accessoriesMemory.Where(c => c._type == Accessories.AccessoriesType.Jewlery))
+
+                            var jewleryMemory = accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Jewlery);
+                            foreach (var item in jewleryMemory)
                             {
-                                jewleryTable.AddRow(item._brand, item._price, item._material, item._quantity);
+                                jewleryTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
                             }
 
                             jewleryTable.Write(Format.MarkDown);
@@ -595,7 +719,19 @@ namespace main
                                     case 1: // Add Quantity
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        jewleryTable.Write(Format.MarkDown);
+
                                         string input = Console.ReadLine();
+
+                                        var match = jewleryMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
                                         jewleryTable.Write(Format.MarkDown);
                                         break;
 
@@ -608,7 +744,7 @@ namespace main
                                         Accessories.AccessoriesType _type = Accessories.AccessoriesType.Jewlery;
                                         Accessories newJewlery = new Accessories(_brand, _price, _material, _quantity, _type);
                                         accessoriesMemory.Add(newJewlery);
-                                        jewleryTable.AddRow(newJewlery._brand, newJewlery._price, newJewlery._material, newJewlery._quantity);
+                                        jewleryTable.AddRow(newJewlery.Brand, newJewlery.Price, newJewlery.Material, newJewlery.Quantity);
                                         Console.Clear();
                                         jewleryTable.Write(Format.MarkDown);
                                         break;
@@ -625,9 +761,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("          [Stickers Stock]");
                             var stickerTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
-                            foreach (var item in accessoriesMemory.Where(c => c._type == Accessories.AccessoriesType.Stickers))
+
+                            var stickerMemory = accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Stickers);
+                            foreach (var item in stickerMemory)
                             {
-                                stickerTable.AddRow(item._brand, item._price, item._material, item._quantity);
+                                stickerTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
                             }
 
                             stickerTable.Write(Format.MarkDown);
@@ -640,7 +778,19 @@ namespace main
                                     case 1: // Add Quantity
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        stickerTable.Write(Format.MarkDown);
+
                                         string input = Console.ReadLine();
+
+                                        var match = stickerMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
                                         stickerTable.Write(Format.MarkDown);
                                         break;
 
@@ -653,7 +803,7 @@ namespace main
                                         Accessories.AccessoriesType _type = Accessories.AccessoriesType.Stickers;
                                         Accessories newSticker = new Accessories(_brand, _price, _material, _quantity, _type);
                                         accessoriesMemory.Add(newSticker);
-                                        stickerTable.AddRow(newSticker._brand, newSticker._price, newSticker._material, newSticker._quantity);
+                                        stickerTable.AddRow(newSticker.Brand, newSticker.Price, newSticker.Material, newSticker.Quantity);
                                         Console.Clear();
                                         stickerTable.Write(Format.MarkDown);
                                         break;
@@ -669,9 +819,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("          [Backpack Stock]");
                             var backpackTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
-                            foreach (var item in accessoriesMemory.Where(c => c._type == Accessories.AccessoriesType.Backpack))
+
+                            var backpackMemory = accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Backpack);
+                            foreach (var item in backpackMemory)
                             {
-                                backpackTable.AddRow(item._brand, item._price, item._material, item._quantity);
+                                backpackTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
                             }
 
                             backpackTable.Write(Format.MarkDown);
@@ -684,7 +836,19 @@ namespace main
                                     case 1: // Add Quantity
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        backpackTable.Write(Format.MarkDown);
+
                                         string input = Console.ReadLine();
+
+                                        var match = backpackMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
                                         backpackTable.Write(Format.MarkDown);
                                         break;
 
@@ -697,7 +861,7 @@ namespace main
                                         Accessories.AccessoriesType _type = Accessories.AccessoriesType.Backpack;
                                         Accessories newBackPack = new Accessories(_brand, _price, _material, _quantity, _type);
                                         accessoriesMemory.Add(newBackPack);
-                                        backpackTable.AddRow(newBackPack._brand, newBackPack._price, newBackPack._material, newBackPack._quantity);
+                                        backpackTable.AddRow(newBackPack.Brand, newBackPack.Price, newBackPack.Material, newBackPack.Quantity);
                                         Console.Clear();
                                         backpackTable.Write(Format.MarkDown);
                                         break;
@@ -714,9 +878,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("           [Wallet Stock]");
                             var walletTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
-                            foreach (var item in accessoriesMemory.Where(c => c._type == Accessories.AccessoriesType.Wallet))
+
+                            var walletMemory = accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Wallet);
+                            foreach (var item in walletMemory)
                             {
-                                walletTable.AddRow(item._brand, item._price, item._material, item._quantity);
+                                walletTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
                             }
 
                             walletTable.Write(Format.MarkDown);
@@ -729,7 +895,19 @@ namespace main
                                     case 1: // Add Quantity
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        walletTable.Write(Format.MarkDown);
+
                                         string input = Console.ReadLine();
+
+                                        var match = walletMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
                                         walletTable.Write(Format.MarkDown);
                                         break;
 
@@ -742,7 +920,7 @@ namespace main
                                         Accessories.AccessoriesType _type = Accessories.AccessoriesType.Wallet;
                                         Accessories newWallet = new Accessories(_brand, _price, _material, _quantity, _type);
                                         accessoriesMemory.Add(newWallet);
-                                        walletTable.AddRow(newWallet._brand, newWallet._price, newWallet._material, newWallet._quantity);
+                                        walletTable.AddRow(newWallet.Brand, newWallet.Price, newWallet.Material, newWallet.Quantity);
                                         Console.Clear();
                                         walletTable.Write(Format.MarkDown);
                                         break;
@@ -758,9 +936,11 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("            [Belt Stock]");
                             var beltTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
-                            foreach (var item in accessoriesMemory.Where(c => c._type == Accessories.AccessoriesType.Belt))
+
+                            var beltMemory =  accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Belt);
+                            foreach (var item in beltMemory)
                             {
-                                beltTable.AddRow(item._brand, item._price, item._material, item._quantity);
+                                beltTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
                             }
 
                             beltTable.Write(Format.MarkDown);
@@ -773,7 +953,19 @@ namespace main
                                     case 1: // Add Quantity
                                         Console.Clear();
                                         Console.WriteLine("Which Item Would You Like To Add Too?\n");
+                                        beltTable.Write(Format.MarkDown);
+
                                         string input = Console.ReadLine();
+
+                                        var match = beltMemory.FirstOrDefault(h => h.Brand == input);
+                                        if (match == null)
+                                        {
+                                            Console.WriteLine("No Match Was Found");
+                                            continue;
+                                        }
+
+                                        match.Quantity ++;
+                                        Console.Clear();
                                         beltTable.Write(Format.MarkDown);
                                         break;
 
@@ -786,7 +978,7 @@ namespace main
                                         Accessories.AccessoriesType _type = Accessories.AccessoriesType.Belt;
                                         Accessories newBelt = new Accessories(_brand, _price, _material, _quantity, _type);
                                         accessoriesMemory.Add(newBelt);
-                                        beltTable.AddRow(newBelt._brand, newBelt._price, newBelt._material, newBelt._quantity);
+                                        beltTable.AddRow(newBelt.Brand, newBelt.Price, newBelt.Material, newBelt.Quantity);
                                         Console.Clear();
                                         beltTable.Write(Format.MarkDown);
                                         break;

@@ -12,18 +12,19 @@ namespace skateboarding
                 Bearings,
                 Wheels
             }
-
-            public string _brand; public double _price; public string _size; public int _quantity; public SkateboardType _type;
             public string Brand { get; set; }
+            public string Size { get; }
             public double Price { get; set; }
             public int Quantity { get; set; }
+            public SkateboardType Type { get; }
+
             public Skateboarding(string Brand, double Price, string Size, int Quantity, SkateboardType Type)
             {
-                this._brand = Brand;
-                this._price = Price;
-                this._size = Size;
-                this._quantity = Quantity;
-                this._type = Type;
+                this.Brand = Brand;
+                this.Size = Size;
+                this.Price = Price;
+                this.Quantity = Quantity;
+                this.Type = Type;
             }
         }
     }
