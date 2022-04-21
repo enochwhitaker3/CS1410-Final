@@ -1,28 +1,16 @@
 ﻿using ConsoleTables;
 using clothing;
-using static skateboarding.Program;
-using static accessories.Program;
+using skateboarding;
+using accessories;
+using storage;
+using System.IO;
 namespace main
 {
     public class Program
     {
         public static void Main()
         {
-            List<Clothing> clothingMemory = new List<Clothing>();
-            List<Skateboarding> skateMemory = new List<Skateboarding>();
-            List<Accessories> accessoriesMemory = new List<Accessories>();
-            Clothing placeHolderTop = new Clothing("False P", 17.99, "X-Large", "White", "Mens", 5, Clothing.ClothingType.Tops);
-            Clothing placeHolderHat = new Clothing("Angel", 10.99, "One-Size", "Black", "unisex", 3, Clothing.ClothingType.Hats);
-            Clothing placeHolderBottom = new Clothing("Empyre", 45.50, "medium", "Blue", "Womens", 2, Clothing.ClothingType.Bottoms);
-            Clothing placeHolderSock = new Clothing("Cali-Wear", 5.99, "One-Size", "White", "Womens", 20, Clothing.ClothingType.Socks);
-            Clothing placeHolderShoe = new Clothing("Nike", 65.99, "12 US", "White", "Mens", 4, Clothing.ClothingType.Shoes);
-
-
-            clothingMemory.Add(placeHolderTop);
-            clothingMemory.Add(placeHolderHat);
-            clothingMemory.Add(placeHolderBottom);
-            clothingMemory.Add(placeHolderSock);
-            clothingMemory.Add(placeHolderShoe);
+            StorageService service = new StorageService();
 
             Console.Clear();
             Console.WriteLine("Please Enter Your Name");
@@ -61,14 +49,14 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Hats Stock]       ");
                             var hatsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-
-                            var hatsMemory = clothingMemory.Where(c => c.Type == Clothing.ClothingType.Hats);
+                            service.clothingload();
+                            var hatsMemory = service.clothingMemory.Where(c => c.Type == Clothing.ClothingType.Hats);
                             foreach (var item in hatsMemory)
                             {
                                 hatsTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
                             }
 
-                            
+
                             while (true)
                             {
                                 hatsTable.Write(Format.MarkDown);
@@ -90,7 +78,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         hatsTable.Write(Format.MarkDown);
                                         break;
@@ -106,7 +94,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Clothing.ClothingType _type = Clothing.ClothingType.Hats;
                                         Clothing newHat = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
-                                        clothingMemory.Add(newHat);
+                                        service.clothingMemory.Add(newHat);
+                                        service.clothingwrite();
                                         hatsTable.AddRow(newHat.Brand, newHat.Price, newHat.Size, newHat.Color, newHat.Gender, newHat.Quantity);
                                         Console.Clear();
                                         hatsTable.Write(Format.MarkDown);
@@ -125,7 +114,8 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Tops Stock]       ");
                             var topsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-                            var topsMemory = clothingMemory.Where(c => c.Type == Clothing.ClothingType.Tops);
+                            service.clothingload();
+                            var topsMemory = service.clothingMemory.Where(c => c.Type == Clothing.ClothingType.Tops);
                             foreach (var item in topsMemory)
                             {
                                 topsTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
@@ -152,7 +142,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         topsTable.Write(Format.MarkDown);
                                         break;
@@ -167,7 +157,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Clothing.ClothingType _type = Clothing.ClothingType.Tops;
                                         Clothing newTop = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
-                                        clothingMemory.Add(newTop);
+                                        service.clothingMemory.Add(newTop);
+                                        service.clothingwrite();
                                         topsTable.AddRow(newTop.Brand, newTop.Price, newTop.Size, newTop.Color, newTop.Gender, newTop.Quantity);
                                         Console.Clear();
                                         topsTable.Write(Format.MarkDown);
@@ -184,8 +175,8 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Bottoms Stock]       ");
                             var bottomsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-
-                            var bottomMemory = clothingMemory.Where(c => c.Type == Clothing.ClothingType.Bottoms);
+                            service.clothingload();
+                            var bottomMemory = service.clothingMemory.Where(c => c.Type == Clothing.ClothingType.Bottoms);
                             foreach (var item in bottomMemory)
                             {
                                 bottomsTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
@@ -212,7 +203,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         bottomsTable.Write(Format.MarkDown);
                                         break;
@@ -227,7 +218,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Clothing.ClothingType _type = Clothing.ClothingType.Bottoms;
                                         Clothing newBottom = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
-                                        clothingMemory.Add(newBottom);
+                                        service.clothingMemory.Add(newBottom);
+                                        service.clothingwrite();
                                         bottomsTable.AddRow(newBottom.Brand, newBottom.Price, newBottom.Size, newBottom.Color, newBottom.Gender, newBottom.Quantity);
                                         Console.Clear();
                                         bottomsTable.Write(Format.MarkDown);
@@ -245,8 +237,8 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Socks Stock]       ");
                             var socksTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-
-                            var socksMemory = clothingMemory.Where(c => c.Type == Clothing.ClothingType.Socks);
+                            service.clothingload();
+                            var socksMemory = service.clothingMemory.Where(c => c.Type == Clothing.ClothingType.Socks);
                             foreach (var item in socksMemory)
                             {
                                 socksTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
@@ -273,7 +265,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         socksTable.Write(Format.MarkDown);
                                         break;
@@ -288,7 +280,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Clothing.ClothingType _type = Clothing.ClothingType.Socks;
                                         Clothing newSock = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
-                                        clothingMemory.Add(newSock);
+                                        service.clothingMemory.Add(newSock);
+                                        service.clothingwrite();
                                         socksTable.AddRow(newSock.Brand, newSock.Price, newSock.Size, newSock.Color, newSock.Gender, newSock.Quantity);
                                         Console.Clear();
                                         socksTable.Write(Format.MarkDown);
@@ -305,8 +298,8 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("                     [Shoes Stock]       ");
                             var shoesTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
-
-                            var shoesMemory = clothingMemory.Where(c => c.Type == Clothing.ClothingType.Shoes);
+                            service.clothingload();
+                            var shoesMemory = service.clothingMemory.Where(c => c.Type == Clothing.ClothingType.Shoes);
                             foreach (var item in shoesMemory)
                             {
                                 shoesTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
@@ -333,7 +326,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         shoesTable.Write(Format.MarkDown);
                                         break;
@@ -348,7 +341,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Clothing.ClothingType _type = Clothing.ClothingType.Shoes;
                                         Clothing newShoe = new Clothing(_brand, _price, _size, _color, _gender, _quantity, _type);
-                                        clothingMemory.Add(newShoe);
+                                        service.clothingMemory.Add(newShoe);
+                                        service.clothingwrite();
                                         shoesTable.AddRow(newShoe.Brand, newShoe.Price, newShoe.Size, newShoe.Color, newShoe.Gender, newShoe.Quantity);
                                         Console.Clear();
                                         shoesTable.Write(Format.MarkDown);
@@ -386,9 +380,10 @@ namespace main
                         {
                             Console.Clear();
                             Console.WriteLine("        [Grip Tape Stock]");
+                            service.skateload();
                             var gripTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
 
-                            var gripMemory = skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.GripTape);
+                            var gripMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.GripTape);
                             foreach (var item in gripMemory)
                             {
                                 gripTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
@@ -415,7 +410,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         gripTable.Write(Format.MarkDown);
                                         break;
@@ -428,7 +423,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.GripTape;
                                         Skateboarding newGripTape = new Skateboarding(_brand, _price, _size, _quantity, _type);
-                                        skateMemory.Add(newGripTape);
+                                        service.skateMemory.Add(newGripTape);
+                                        service.skatewrite();
                                         gripTable.AddRow(newGripTape.Brand, newGripTape.Price, newGripTape.Size, newGripTape.Quantity);
                                         Console.Clear();
                                         gripTable.Write(Format.MarkDown);
@@ -446,10 +442,11 @@ namespace main
                         {
                             Console.Clear();
                             Console.WriteLine("          [Deck Stock]");
+                            service.skateload();
                             var deckTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
 
-                            var deckMemory = skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Decks);
-                            foreach (var item in skateMemory)
+                            var deckMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Decks);
+                            foreach (var item in service.skateMemory)
                             {
                                 deckTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
@@ -475,7 +472,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         deckTable.Write(Format.MarkDown);
                                         break;
@@ -488,7 +485,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Decks;
                                         Skateboarding newDeck = new Skateboarding(_brand, _price, _size, _quantity, _type);
-                                        skateMemory.Add(newDeck);
+                                        service.skateMemory.Add(newDeck);
+                                        service.skatewrite();
                                         deckTable.AddRow(newDeck.Brand, newDeck.Price, newDeck.Size, newDeck.Quantity);
                                         Console.Clear();
                                         deckTable.Write(Format.MarkDown);
@@ -505,9 +503,9 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("          [Truck Stock]");
                             var truckTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
-
-                            var truckMemory = skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Trucks);
-                            foreach (var item in skateMemory)
+                            service.skateload();
+                            var truckMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Trucks);
+                            foreach (var item in service.skateMemory)
                             {
                                 truckTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
@@ -533,7 +531,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         truckTable.Write(Format.MarkDown);
                                         break;
@@ -546,7 +544,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Trucks;
                                         Skateboarding newTruck = new Skateboarding(_brand, _price, _size, _quantity, _type);
-                                        skateMemory.Add(newTruck);
+                                        service.skateMemory.Add(newTruck);
+                                        service.skatewrite();
                                         truckTable.AddRow(newTruck.Brand, newTruck.Price, newTruck.Size, newTruck.Quantity);
                                         Console.Clear();
                                         truckTable.Write(Format.MarkDown);
@@ -564,8 +563,8 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("        [Bearings Stock]");
                             var bearingTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
-
-                            var bearingMemory = skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Bearings);
+                            service.skateload();
+                            var bearingMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Bearings);
                             foreach (var item in bearingMemory)
                             {
                                 bearingTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
@@ -592,7 +591,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         bearingTable.Write(Format.MarkDown);
                                         break;
@@ -605,7 +604,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Bearings;
                                         Skateboarding newBearing = new Skateboarding(_brand, _price, _size, _quantity, _type);
-                                        skateMemory.Add(newBearing);
+                                        service.skateMemory.Add(newBearing);
+                                        service.skatewrite();
                                         bearingTable.AddRow(newBearing.Brand, newBearing.Price, newBearing.Size, newBearing.Quantity);
                                         Console.Clear();
                                         bearingTable.Write(Format.MarkDown);
@@ -622,8 +622,8 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("         [Wheels Stock]");
                             var wheelTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
-
-                            var wheelMemory = skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Wheels);
+                            service.skateload();
+                            var wheelMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Wheels);
                             foreach (var item in wheelMemory)
                             {
                                 wheelTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
@@ -650,7 +650,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         wheelTable.Write(Format.MarkDown);
                                         break;
@@ -663,7 +663,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Skateboarding.SkateboardType _type = Skateboarding.SkateboardType.Wheels;
                                         Skateboarding newWheel = new Skateboarding(_brand, _price, _size, _quantity, _type);
-                                        skateMemory.Add(newWheel);
+                                        service.skateMemory.Add(newWheel);
+                                        service.skatewrite();
                                         wheelTable.AddRow(newWheel.Brand, newWheel.Price, newWheel.Size, newWheel.Quantity);
                                         Console.Clear();
                                         wheelTable.Write(Format.MarkDown);
@@ -701,9 +702,10 @@ namespace main
                         {
                             Console.Clear();
                             Console.WriteLine("           [Jewlery Stock]");
+                            service.accessoriesload();
                             var jewleryTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
 
-                            var jewleryMemory = accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Jewlery);
+                            var jewleryMemory = service.accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Jewlery);
                             foreach (var item in jewleryMemory)
                             {
                                 jewleryTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
@@ -730,7 +732,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         jewleryTable.Write(Format.MarkDown);
                                         break;
@@ -743,7 +745,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Accessories.AccessoriesType _type = Accessories.AccessoriesType.Jewlery;
                                         Accessories newJewlery = new Accessories(_brand, _price, _material, _quantity, _type);
-                                        accessoriesMemory.Add(newJewlery);
+                                        service.accessoriesMemory.Add(newJewlery);
+                                        service.accessorieswrite();
                                         jewleryTable.AddRow(newJewlery.Brand, newJewlery.Price, newJewlery.Material, newJewlery.Quantity);
                                         Console.Clear();
                                         jewleryTable.Write(Format.MarkDown);
@@ -760,9 +763,10 @@ namespace main
                         {
                             Console.Clear();
                             Console.WriteLine("          [Stickers Stock]");
+                            service.accessoriesload();
                             var stickerTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
 
-                            var stickerMemory = accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Stickers);
+                            var stickerMemory = service.accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Stickers);
                             foreach (var item in stickerMemory)
                             {
                                 stickerTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
@@ -789,7 +793,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         stickerTable.Write(Format.MarkDown);
                                         break;
@@ -802,7 +806,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Accessories.AccessoriesType _type = Accessories.AccessoriesType.Stickers;
                                         Accessories newSticker = new Accessories(_brand, _price, _material, _quantity, _type);
-                                        accessoriesMemory.Add(newSticker);
+                                        service.accessoriesMemory.Add(newSticker);
+                                        service.accessorieswrite();
                                         stickerTable.AddRow(newSticker.Brand, newSticker.Price, newSticker.Material, newSticker.Quantity);
                                         Console.Clear();
                                         stickerTable.Write(Format.MarkDown);
@@ -819,8 +824,8 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("          [Backpack Stock]");
                             var backpackTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
-
-                            var backpackMemory = accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Backpack);
+                            service.accessoriesload();
+                            var backpackMemory = service.accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Backpack);
                             foreach (var item in backpackMemory)
                             {
                                 backpackTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
@@ -847,7 +852,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         backpackTable.Write(Format.MarkDown);
                                         break;
@@ -860,7 +865,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Accessories.AccessoriesType _type = Accessories.AccessoriesType.Backpack;
                                         Accessories newBackPack = new Accessories(_brand, _price, _material, _quantity, _type);
-                                        accessoriesMemory.Add(newBackPack);
+                                        service.accessoriesMemory.Add(newBackPack);
+                                        service.accessorieswrite();
                                         backpackTable.AddRow(newBackPack.Brand, newBackPack.Price, newBackPack.Material, newBackPack.Quantity);
                                         Console.Clear();
                                         backpackTable.Write(Format.MarkDown);
@@ -878,8 +884,8 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("           [Wallet Stock]");
                             var walletTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
-
-                            var walletMemory = accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Wallet);
+                            service.accessoriesload();
+                            var walletMemory = service.accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Wallet);
                             foreach (var item in walletMemory)
                             {
                                 walletTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
@@ -906,7 +912,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         walletTable.Write(Format.MarkDown);
                                         break;
@@ -919,7 +925,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Accessories.AccessoriesType _type = Accessories.AccessoriesType.Wallet;
                                         Accessories newWallet = new Accessories(_brand, _price, _material, _quantity, _type);
-                                        accessoriesMemory.Add(newWallet);
+                                        service.accessoriesMemory.Add(newWallet);
+                                        service.accessorieswrite();
                                         walletTable.AddRow(newWallet.Brand, newWallet.Price, newWallet.Material, newWallet.Quantity);
                                         Console.Clear();
                                         walletTable.Write(Format.MarkDown);
@@ -936,8 +943,8 @@ namespace main
                             Console.Clear();
                             Console.WriteLine("            [Belt Stock]");
                             var beltTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
-
-                            var beltMemory =  accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Belt);
+                            service.accessoriesload();
+                            var beltMemory = service.accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Belt);
                             foreach (var item in beltMemory)
                             {
                                 beltTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
@@ -964,7 +971,7 @@ namespace main
                                             continue;
                                         }
 
-                                        match.Quantity ++;
+                                        match.Quantity++;
                                         Console.Clear();
                                         beltTable.Write(Format.MarkDown);
                                         break;
@@ -977,7 +984,8 @@ namespace main
                                         Console.WriteLine("Please Enter The Desired Quantity"); int _quantity = Convert.ToInt32(Console.ReadLine());
                                         Accessories.AccessoriesType _type = Accessories.AccessoriesType.Belt;
                                         Accessories newBelt = new Accessories(_brand, _price, _material, _quantity, _type);
-                                        accessoriesMemory.Add(newBelt);
+                                        service.accessoriesMemory.Add(newBelt);
+                                        service.accessorieswrite();
                                         beltTable.AddRow(newBelt.Brand, newBelt.Price, newBelt.Material, newBelt.Quantity);
                                         Console.Clear();
                                         beltTable.Write(Format.MarkDown);
