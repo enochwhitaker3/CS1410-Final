@@ -3,6 +3,7 @@ using clothing;
 using skateboarding;
 using accessories;
 using storage;
+using animations;
 using System.IO;
 namespace main
 {
@@ -11,6 +12,7 @@ namespace main
         public static void Main()
         {
             StorageService service = new StorageService();
+            Loading loading = new Loading();
 
             Console.Clear();
             Console.WriteLine("Please Enter Your Name");
@@ -30,8 +32,10 @@ namespace main
 
             if (userInput == 1) // Clothing Merchandise Page
             {
-            clothingStart:
+            clothingStart: 
                 Console.Clear();
+                
+               
                 var clothingTable = new ConsoleTable("Clothing Categories");
                 clothingTable.AddRow("1: Check Hats Stock");
                 clothingTable.AddRow("2: Check Tops Stock");
@@ -365,6 +369,8 @@ namespace main
             {
             skateboardingStart:
                 Console.Clear();
+                
+
                 var skateTable = new ConsoleTable("Skateboarding Categories");
                 skateTable.AddRow("1: Check Grip Tape Stock");
                 skateTable.AddRow("2: Check Decks Stock");
@@ -380,9 +386,9 @@ namespace main
                         {
                             Console.Clear();
                             Console.WriteLine("        [Grip Tape Stock]");
-                            service.skateload();
+                            
                             var gripTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
-
+                            service.skateload();
                             var gripMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.GripTape);
                             foreach (var item in gripMemory)
                             {
@@ -442,11 +448,11 @@ namespace main
                         {
                             Console.Clear();
                             Console.WriteLine("          [Deck Stock]");
-                            service.skateload();
+                            
                             var deckTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
-
+                            service.skateload();
                             var deckMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Decks);
-                            foreach (var item in service.skateMemory)
+                            foreach (var item in deckMemory)
                             {
                                 deckTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
@@ -505,7 +511,7 @@ namespace main
                             var truckTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
                             service.skateload();
                             var truckMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Trucks);
-                            foreach (var item in service.skateMemory)
+                            foreach (var item in truckMemory)
                             {
                                 truckTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
@@ -687,6 +693,8 @@ namespace main
             {
             accessoriesStart:
                 Console.Clear();
+                
+
                 var accessoriesTable = new ConsoleTable("Accessorized Categories");
                 accessoriesTable.AddRow("1: Check Jewlery Stock");
                 accessoriesTable.AddRow("2: Check Stickers Stock");

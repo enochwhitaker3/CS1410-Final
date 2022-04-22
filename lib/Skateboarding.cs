@@ -19,8 +19,8 @@ namespace skateboarding
         public Skateboarding(string Brand, double Price, string Size, int Quantity, SkateboardType Type)
         {
             this.Brand = Brand;
-            this.Size = Size;
             this.Price = Price;
+            this.Size = Size;
             this.Quantity = Quantity;
             this.Type = Type;
         }
