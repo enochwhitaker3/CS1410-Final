@@ -1,4 +1,4 @@
-public abstract class Merchandise
+interface Merchandise
 {
     string Brand { get; set; }
     double Price { get; set; }

@@ -3,8 +3,7 @@ using clothing;
 using skateboarding;
 using accessories;
 using storage;
-using animations;
-using System.IO;
+using error;
 namespace main
 {
     public class Program
@@ -12,7 +11,7 @@ namespace main
         public static void Main()
         {
             StorageService service = new StorageService();
-            Loading loading = new Loading();
+            Error error = new Error();
 
             Console.Clear();
             Console.WriteLine("Please Enter Your Name");
@@ -28,14 +27,20 @@ namespace main
             table.AddRow("2: Skateboarding Merchandise");
             table.AddRow("3: Accessorized Merchandise");
             table.Write(Format.Alternative);
-            var userInput = Convert.ToInt32(Console.ReadLine());
+            int userInput;
 
+            while (!int.TryParse(Console.ReadLine(), out userInput) || userInput > 3) // Execption Handling: If not at string, or if Input is greater than 3
+            {
+                error.invalidinput();
+                goto Start;
+            }
+            
             if (userInput == 1) // Clothing Merchandise Page
             {
-            clothingStart: 
+            clothingStart:
                 Console.Clear();
-                
-               
+
+
                 var clothingTable = new ConsoleTable("Clothing Categories");
                 clothingTable.AddRow("1: Check Hats Stock");
                 clothingTable.AddRow("2: Check Tops Stock");
@@ -44,14 +49,19 @@ namespace main
                 clothingTable.AddRow("5: Check Shoes Stock");
                 clothingTable.AddRow("6: Exit To Main Menu");
                 clothingTable.Write(Format.Alternative);
-                var clothingInput = Convert.ToInt32(Console.ReadLine());
+                int clothingInput;
+
+                while (!int.TryParse(Console.ReadLine(), out clothingInput) || clothingInput > 6)
+                {
+                    error.invalidinput();
+                    goto clothingStart;
+                }
+
                 switch (clothingInput)
                 {
                     case 1: // Hats : Clothimg
                         {
-
                             Console.Clear();
-                            Console.WriteLine("                     [Hats Stock]       ");
                             var hatsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
                             service.clothingload();
                             var hatsMemory = service.clothingMemory.Where(c => c.Type == Clothing.ClothingType.Hats);
@@ -60,12 +70,19 @@ namespace main
                                 hatsTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
                             }
 
-
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("[Hats Stock]\n");
                                 hatsTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int hatInput = Convert.ToInt32(Console.ReadLine());
+                                int hatInput;
+                                while (!int.TryParse(Console.ReadLine(), out hatInput) || hatInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
+
                                 switch (hatInput)
                                 {
                                     case 1: // Add Quantity
@@ -108,15 +125,11 @@ namespace main
                                     case 3: // Exit
                                         goto clothingStart;
                                 }
-
                             }
-
-
                         }
                     case 2: // Tops : Clothing
                         {
                             Console.Clear();
-                            Console.WriteLine("                     [Tops Stock]       ");
                             var topsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
                             service.clothingload();
                             var topsMemory = service.clothingMemory.Where(c => c.Type == Clothing.ClothingType.Tops);
@@ -125,11 +138,19 @@ namespace main
                                 topsTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
                             }
 
-                            topsTable.Write(Format.MarkDown);
+
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("[Tops Stock]\n");
+                                topsTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int topInput = Convert.ToInt32(Console.ReadLine());
+                                int topInput;
+                                while (!int.TryParse(Console.ReadLine(), out topInput) || topInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (topInput)
                                 {
                                     case 1: // Add Quantity
@@ -177,7 +198,6 @@ namespace main
                     case 3: // Bottoms : Clothing
                         {
                             Console.Clear();
-                            Console.WriteLine("                     [Bottoms Stock]       ");
                             var bottomsTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
                             service.clothingload();
                             var bottomMemory = service.clothingMemory.Where(c => c.Type == Clothing.ClothingType.Bottoms);
@@ -186,11 +206,18 @@ namespace main
                                 bottomsTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
                             }
 
-                            bottomsTable.Write(Format.MarkDown);
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("[Bottoms Stock]\n");
+                                bottomsTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int bottomsInput = Convert.ToInt32(Console.ReadLine());
+                                int bottomsInput;
+                                while (!int.TryParse(Console.ReadLine(), out bottomsInput) || bottomsInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (bottomsInput)
                                 {
                                     case 1: // Add Quantity
@@ -235,11 +262,9 @@ namespace main
 
                             }
                         }
-
                     case 4: // Socks : Clothing
                         {
                             Console.Clear();
-                            Console.WriteLine("                     [Socks Stock]       ");
                             var socksTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
                             service.clothingload();
                             var socksMemory = service.clothingMemory.Where(c => c.Type == Clothing.ClothingType.Socks);
@@ -247,12 +272,18 @@ namespace main
                             {
                                 socksTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
                             }
-
-                            socksTable.Write(Format.MarkDown);
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("[Socks Stock]\n");
+                                socksTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int socksInput = Convert.ToInt32(Console.ReadLine());
+                                int socksInput;
+                                while (!int.TryParse(Console.ReadLine(), out socksInput) || socksInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (socksInput)
                                 {
                                     case 1: // Add Quantity
@@ -300,7 +331,7 @@ namespace main
                     case 5: // Shoes : Clothing
                         {
                             Console.Clear();
-                            Console.WriteLine("                     [Shoes Stock]       ");
+
                             var shoesTable = new ConsoleTable("Brand", "Price", "Size", "Color", "Gender", "Quantity");
                             service.clothingload();
                             var shoesMemory = service.clothingMemory.Where(c => c.Type == Clothing.ClothingType.Shoes);
@@ -309,11 +340,18 @@ namespace main
                                 shoesTable.AddRow(item.Brand, item.Price, item.Size, item.Color, item.Gender, item.Quantity);
                             }
 
-                            shoesTable.Write(Format.MarkDown);
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("[Shoes Stock]\n");
+                                shoesTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int shoesInput = Convert.ToInt32(Console.ReadLine());
+                                int shoesInput;
+                                while (!int.TryParse(Console.ReadLine(), out shoesInput) || shoesInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (shoesInput)
                                 {
                                     case 1: // Add Quantity
@@ -369,7 +407,7 @@ namespace main
             {
             skateboardingStart:
                 Console.Clear();
-                
+
 
                 var skateTable = new ConsoleTable("Skateboarding Categories");
                 skateTable.AddRow("1: Check Grip Tape Stock");
@@ -379,14 +417,18 @@ namespace main
                 skateTable.AddRow("5: Check Wheel Stock");
                 skateTable.AddRow("6: Exit To Main Menu");
                 skateTable.Write(Format.Alternative);
-                var skateInput = Convert.ToInt32(Console.ReadLine());
+                int skateInput;
+                while (!int.TryParse(Console.ReadLine(), out skateInput) || skateInput > 6)
+                {
+                    error.invalidinput();
+                    goto skateboardingStart;
+                }
+
                 switch (skateInput)
                 {
                     case 1: // Grip Tape : Skateboarding
                         {
                             Console.Clear();
-                            Console.WriteLine("        [Grip Tape Stock]");
-                            
                             var gripTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
                             service.skateload();
                             var gripMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.GripTape);
@@ -395,11 +437,18 @@ namespace main
                                 gripTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
 
-                            gripTable.Write(Format.MarkDown);
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("|Grip Tape Stock|\n");
+                                gripTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int gripInput = Convert.ToInt32(Console.ReadLine());
+                                int gripInput;
+                                while (!int.TryParse(Console.ReadLine(), out gripInput) || gripInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (gripInput)
                                 {
                                     case 1: // Add Quantity
@@ -447,8 +496,6 @@ namespace main
                     case 2: // Decks : Skateboarding
                         {
                             Console.Clear();
-                            Console.WriteLine("          [Deck Stock]");
-                            
                             var deckTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
                             service.skateload();
                             var deckMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Decks);
@@ -457,11 +504,19 @@ namespace main
                                 deckTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
 
-                            deckTable.Write(Format.MarkDown);
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("          [Deck Stock]");
+                                deckTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int deckInput = Convert.ToInt32(Console.ReadLine());
+                                int deckInput;
+                                while (!int.TryParse(Console.ReadLine(), out deckInput) || deckInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
+
                                 switch (deckInput)
                                 {
                                     case 1: // Add Quantity
@@ -507,7 +562,7 @@ namespace main
                     case 3: // Trucks : Skateboarding
                         {
                             Console.Clear();
-                            Console.WriteLine("          [Truck Stock]");
+
                             var truckTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
                             service.skateload();
                             var truckMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Trucks);
@@ -516,11 +571,19 @@ namespace main
                                 truckTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
 
-                            truckTable.Write(Format.MarkDown);
+
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("          [Truck Stock]");
+                                truckTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int truckInput = Convert.ToInt32(Console.ReadLine());
+                                int truckInput;
+                                while (!int.TryParse(Console.ReadLine(), out truckInput) || truckInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (truckInput)
                                 {
                                     case 1: // Add Quantity
@@ -563,11 +626,10 @@ namespace main
 
                             }
                         }
-
                     case 4: // Bearings : Skateboarding
                         {
                             Console.Clear();
-                            Console.WriteLine("        [Bearings Stock]");
+
                             var bearingTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
                             service.skateload();
                             var bearingMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Bearings);
@@ -576,11 +638,19 @@ namespace main
                                 bearingTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
 
-                            bearingTable.Write(Format.MarkDown);
+
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("        [Bearings Stock]");
+                                bearingTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int bearingInput = Convert.ToInt32(Console.ReadLine());
+                                int bearingInput;
+                                while (!int.TryParse(Console.ReadLine(), out bearingInput) || bearingInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (bearingInput)
                                 {
                                     case 1: // Add Quantity
@@ -626,7 +696,7 @@ namespace main
                     case 5: // Wheels : Skateboarding
                         {
                             Console.Clear();
-                            Console.WriteLine("         [Wheels Stock]");
+
                             var wheelTable = new ConsoleTable("Brand", "Price", "Size", "Quantity");
                             service.skateload();
                             var wheelMemory = service.skateMemory.Where(c => c.Type == Skateboarding.SkateboardType.Wheels);
@@ -635,11 +705,19 @@ namespace main
                                 wheelTable.AddRow(item.Brand, item.Price, item.Size, item.Quantity);
                             }
 
-                            wheelTable.Write(Format.MarkDown);
+
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("         [Wheels Stock]");
+                                wheelTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int wheelInput = Convert.ToInt32(Console.ReadLine());
+                                int wheelInput;
+                                while (!int.TryParse(Console.ReadLine(), out wheelInput) || wheelInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (wheelInput)
                                 {
                                     case 1: // Add Quantity
@@ -687,14 +765,11 @@ namespace main
                             goto Start;
                         }
                 }
-
             }
             else if (userInput == 3) // Accessorized Merchandise Page
             {
             accessoriesStart:
                 Console.Clear();
-                
-
                 var accessoriesTable = new ConsoleTable("Accessorized Categories");
                 accessoriesTable.AddRow("1: Check Jewlery Stock");
                 accessoriesTable.AddRow("2: Check Stickers Stock");
@@ -703,27 +778,37 @@ namespace main
                 accessoriesTable.AddRow("5: Check Belt Stock");
                 accessoriesTable.AddRow("6: Exit To Main Menu");
                 accessoriesTable.Write(Format.Alternative);
-                var accessoriesInput = Convert.ToInt32(Console.ReadLine());
+                int accessoriesInput;
+                while (!int.TryParse(Console.ReadLine(), out accessoriesInput) || accessoriesInput > 6)
+                {
+                    error.invalidinput();
+                    goto accessoriesStart;
+                }
                 switch (accessoriesInput)
                 {
                     case 1: // Jewlery : Accessories
                         {
                             Console.Clear();
-                            Console.WriteLine("           [Jewlery Stock]");
                             service.accessoriesload();
                             var jewleryTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
-
                             var jewleryMemory = service.accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Jewlery);
                             foreach (var item in jewleryMemory)
                             {
                                 jewleryTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
                             }
-
-                            jewleryTable.Write(Format.MarkDown);
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("[Jewlery Stock]\n");
+                                jewleryTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int jewleryInput = Convert.ToInt32(Console.ReadLine());
+                                int jewleryInput;
+                                while (!int.TryParse(Console.ReadLine(), out jewleryInput) || jewleryInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
+
                                 switch (jewleryInput)
                                 {
                                     case 1: // Add Quantity
@@ -770,21 +855,25 @@ namespace main
                     case 2: // Stickers : Accessories
                         {
                             Console.Clear();
-                            Console.WriteLine("          [Stickers Stock]");
                             service.accessoriesload();
                             var stickerTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
-
                             var stickerMemory = service.accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Stickers);
                             foreach (var item in stickerMemory)
                             {
                                 stickerTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
                             }
-
-                            stickerTable.Write(Format.MarkDown);
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("[Stickers Stock]\n");
+                                stickerTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int stickerInput = Convert.ToInt32(Console.ReadLine());
+                                int stickerInput;
+                                while (!int.TryParse(Console.ReadLine(), out stickerInput) || stickerInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (stickerInput)
                                 {
                                     case 1: // Add Quantity
@@ -830,7 +919,6 @@ namespace main
                     case 3: // Backpacks : Accessories
                         {
                             Console.Clear();
-                            Console.WriteLine("          [Backpack Stock]");
                             var backpackTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
                             service.accessoriesload();
                             var backpackMemory = service.accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Backpack);
@@ -838,12 +926,18 @@ namespace main
                             {
                                 backpackTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
                             }
-
-                            backpackTable.Write(Format.MarkDown);
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("[Backpack Stock]\n");
+                                backpackTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int backpackInput = Convert.ToInt32(Console.ReadLine());
+                                int backpackInput;
+                                while (!int.TryParse(Console.ReadLine(), out backpackInput) || backpackInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (backpackInput)
                                 {
                                     case 1: // Add Quantity
@@ -886,11 +980,9 @@ namespace main
 
                             }
                         }
-
                     case 4: // Wallet : Accessories
                         {
                             Console.Clear();
-                            Console.WriteLine("           [Wallet Stock]");
                             var walletTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
                             service.accessoriesload();
                             var walletMemory = service.accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Wallet);
@@ -898,12 +990,18 @@ namespace main
                             {
                                 walletTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
                             }
-
-                            walletTable.Write(Format.MarkDown);
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("[Wallet Stock]\n");
+                                walletTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int walletInput = Convert.ToInt32(Console.ReadLine());
+                                int walletInput;
+                                while (!int.TryParse(Console.ReadLine(), out walletInput) || walletInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (walletInput)
                                 {
                                     case 1: // Add Quantity
@@ -949,7 +1047,6 @@ namespace main
                     case 5: // Belt : Accessories
                         {
                             Console.Clear();
-                            Console.WriteLine("            [Belt Stock]");
                             var beltTable = new ConsoleTable("Brand", "Price", "Material", "Quantity");
                             service.accessoriesload();
                             var beltMemory = service.accessoriesMemory.Where(c => c.Type == Accessories.AccessoriesType.Belt);
@@ -958,11 +1055,18 @@ namespace main
                                 beltTable.AddRow(item.Brand, item.Price, item.Material, item.Quantity);
                             }
 
-                            beltTable.Write(Format.MarkDown);
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("[Belt Stock]\n");
+                                beltTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
-                                int beltInput = Convert.ToInt32(Console.ReadLine());
+                                int beltInput;
+                                while (!int.TryParse(Console.ReadLine(), out beltInput) || beltInput > 3)
+                                {
+                                    error.invalidinput();
+                                    break;
+                                }
                                 switch (beltInput)
                                 {
                                     case 1: // Add Quantity
@@ -1008,16 +1112,8 @@ namespace main
                     case 6: // Exit
                         {
                             goto Start;
-
                         }
                 }
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("invalid input!\n");
-                Thread.Sleep(1000);
-                goto Start;
             }
         }
     }
