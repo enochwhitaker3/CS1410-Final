@@ -440,7 +440,7 @@ namespace main
                             while (true)
                             {
                                 Console.Clear();
-                                Console.WriteLine("|Grip Tape Stock|\n");
+                                Console.WriteLine("[Grip Tape Stock]\n");
                                 gripTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
                                 int gripInput;
@@ -507,7 +507,7 @@ namespace main
                             while (true)
                             {
                                 Console.Clear();
-                                Console.WriteLine("          [Deck Stock]");
+                                Console.WriteLine("[Deck Stock]\n");
                                 deckTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
                                 int deckInput;
@@ -575,7 +575,7 @@ namespace main
                             while (true)
                             {
                                 Console.Clear();
-                                Console.WriteLine("          [Truck Stock]");
+                                Console.WriteLine("[Truck Stock]\n");
                                 truckTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
                                 int truckInput;
@@ -642,7 +642,7 @@ namespace main
                             while (true)
                             {
                                 Console.Clear();
-                                Console.WriteLine("        [Bearings Stock]");
+                                Console.WriteLine("[Bearings Stock]\n");
                                 bearingTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
                                 int bearingInput;
@@ -709,7 +709,7 @@ namespace main
                             while (true)
                             {
                                 Console.Clear();
-                                Console.WriteLine("         [Wheels Stock]");
+                                Console.WriteLine("[Wheels Stock]\n");
                                 wheelTable.Write(Format.MarkDown);
                                 Console.WriteLine("[1]Add Quantity\n[2]Add New Item\n[3]Exit\n");
                                 int wheelInput;
