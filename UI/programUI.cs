@@ -26,10 +26,11 @@ namespace main
             table.AddRow("1: Clothing Merchandise");
             table.AddRow("2: Skateboarding Merchandise");
             table.AddRow("3: Accessorized Merchandise");
+            table.AddRow("4: Exit");
             table.Write(Format.Alternative);
             int userInput;
 
-            while (!int.TryParse(Console.ReadLine(), out userInput) || userInput > 3) // Execption Handling: If not at string, or if Input is greater than 3
+            while (!int.TryParse(Console.ReadLine(), out userInput) || userInput > 4) // Execption Handling: If not at string, or if Input is greater than 3
             {
                 error.invalidinput();
                 goto Start;
@@ -1114,6 +1115,10 @@ namespace main
                             goto Start;
                         }
                 }
+            }
+            else if (userInput == 4) // Exit the program
+            {
+                System.Environment.Exit(0);
             }
         }
     }
